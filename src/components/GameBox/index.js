@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./game-box.css";
+import "./GameBox.css";
 import Title from "../Title";
 import DateStamp from "../DateStamp";
 
