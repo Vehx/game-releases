@@ -3,15 +3,15 @@ import PropTypes from "prop-types";
 import "./Title.css";
 
 const Title = (props) => {
-    return <h1 className="title">{props.name}</h1>;
+    return <h1 className="title">{props.title}</h1>;
 };
 
 Title.propTypes = {
-    name: PropTypes.string,
+    title: PropTypes.string,
 };
 
 Title.defaultProps = {
-    name: "Game 404",
+    title: "Title",
 };
 
 export default Title;
