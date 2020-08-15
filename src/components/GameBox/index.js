@@ -7,8 +7,8 @@ import DateStamp from "../DateStamp";
 const GameBox = (props) => {
     return (
         <div className="game-box">
-            <Title> {props.name} </Title>
-            <DateStamp> {props.releaseDate} </DateStamp>
+            <Title title={props.name} />
+            <DateStamp date={props.releaseDate} />
         </div>
     );
 };
