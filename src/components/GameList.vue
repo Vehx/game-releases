@@ -11,7 +11,7 @@
         <p v-if="error">{{ error }}</p>
         <div v-if="game">
             <p>A game was loaded</p>
-            <p>{{ game.name }}</p>
+            <p>{{ game[0].name }}</p>
         </div>
       </li>
     </ul>
@@ -41,28 +41,29 @@ export default {
         async fetchGame () {
             this.loading = true;
             const url = process.env.VUE_APP_API_URL;
-            const clientID = process.env.VUE_APP_API_CLIENT_ID;
-            const token = process.env.VUE_APP_API_ACCESS_TOKEN;
+            // const clientID = process.env.VUE_APP_API_CLIENT_ID;
+            // const token = process.env.VUE_APP_API_ACCESS_TOKEN;
             // console.log(process.env.VUE_APP_API_URL);
             // console.log(process.env.VUE_APP_API_CLIENT_ID);
             // console.log(process.env.VUE_APP_API_ACCESS_TOKEN);
 
             try {
-                
+                // const res = await fetch('https://api.kanye.rest')
                 const res = await fetch(
                     url,
                     {
                         method: "POST",
-                        headers: {
-                            "Accept": "application/json",
-                            "Client-ID": clientID,
-                            "Authorization": "Bearer " + token,
-                        },
-                        body: "fields *;"
+                        // headers: {
+                        //     "Accept": "application/json",
+                        //     "Client-ID": clientID,
+                        //     "Authorization": "Bearer " + token,
+                        // },
+                        body: "fields *; limit 1;"
                     }
                 );
                 this.game = await res.json();
-                // console.log(res);
+                console.log(this.game);
+                console.log(this.game[0].name);
                 this.loading = false;
             } catch (error) {
                 this.loading = false;
