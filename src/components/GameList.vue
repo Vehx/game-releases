@@ -11,7 +11,20 @@
         <p v-if="error">{{ error }}</p>
         <div v-if="game">
           <p>A game was loaded</p>
-          <p>{{ game[0].name }}</p>
+          <router-link
+            :to="{
+              name: 'GameDetails',
+              params: {
+                id: game[0].id,
+                slug: game[0].slug,
+                name: game[0].name,
+                release: game[0].first_release_date,
+                summary: game[0].summary
+              }
+            }"
+          >
+            {{ game[0].name }}
+          </router-link>
         </div>
       </li>
     </ul>
