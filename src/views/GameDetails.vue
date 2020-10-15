@@ -1,10 +1,15 @@
 <template>
-  <h2>Game details POGGERS</h2>
-  <p>Current game id: {{ game.id }}</p>
-  <p>Current game slug: {{ game.slug }}</p>
-  <p>Current game name: {{ game.name }}</p>
-  <p>Current game releases on: {{ game.release }}</p>
-  <p>Current game summary: {{ game.summary }}</p>
+  <div>
+    <h2>Game details POGGERS</h2>
+    <p>Current game id: {{ game.id }}</p>
+    <p>Current game slug: {{ game.slug }}</p>
+    <p>Current game name: {{ game.name }}</p>
+    <p>
+      Current game releases on:
+      {{ new Intl.DateTimeFormat().format(game.release * 1000) }}
+    </p>
+    <p>Current game summary: {{ game.summary }}</p>
+  </div>
 </template>
 <script>
 export default {
