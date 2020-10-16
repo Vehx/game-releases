@@ -1,21 +1,25 @@
 <template>
   <div class="gamelist">
     <h1>{{ title }}</h1>
-    <ul>
-      <p v-if="loading">Loading...{{ url }}</p>
-      <p v-if="error">{{ error }}</p>
+    <p v-if="loading">Loading...{{ url }}</p>
+    <p v-if="error">{{ error }}</p>
+    <ul v-if="games">
       <GameLi
-        v-if="game"
-        :id="game[0].id"
-        :slug="game[0].slug"
-        :name="game[0].name"
-        :release="game[0].first_release_date"
+        v-for="game in games"
+        :key="game.id"
+        :id="game.id"
+        :slug="game.slug"
+        :name="game.name"
+        :release="game.first_release_date"
       />
     </ul>
   </div>
 </template>
 
 <script>
+// this is what cover.url will return in fetch
+// //images.igdb.com/igdb/image/upload/t_thumb/co2dc0.jpg
+// there is a rate limit of around 600 images per minute so caching would be great
 import GameLi from "@/components/GameLi";
 
 export default {
@@ -29,10 +33,8 @@ export default {
   data() {
     return {
       loading: false,
-      game: null,
+      games: null,
       error: null,
-      //   token: process.env.VUE_APP_API_ACCESS_TOKEN
-      //   id: process.env.VUE_APP_API_CLIENT_ID
       url: process.env.VUE_APP_API_URL
     };
   },
@@ -42,27 +44,24 @@ export default {
   methods: {
     async fetchGame() {
       this.loading = true;
+      // changing url to only be the base url might be a good idea
       const url = process.env.VUE_APP_API_URL;
-      // const clientID = process.env.VUE_APP_API_CLIENT_ID;
-      // const token = process.env.VUE_APP_API_ACCESS_TOKEN;
-      // console.log(process.env.VUE_APP_API_URL);
-      // console.log(process.env.VUE_APP_API_CLIENT_ID);
-      // console.log(process.env.VUE_APP_API_ACCESS_TOKEN);
+      const now = Math.floor(new Date().getTime() / 1000);
 
       try {
-        // const res = await fetch('https://api.kanye.rest')
         const res = await fetch(url, {
           method: "POST",
+          // add headers here if needed for authentication to aws proxy
           // headers: {
           //     "Accept": "application/json",
           //     "Client-ID": clientID,
           //     "Authorization": "Bearer " + token,
           // },
-          body: "fields *; limit 1;"
+          // sending this in with a prop would make this a much more general component
+          body: `fields *; sort first_release_date asc; where first_release_date > ${now}; limit 2;`
         });
-        this.game = await res.json();
-        console.log(this.game);
-        console.log(this.game[0].name);
+        this.games = await res.json();
+        console.log(this.games);
         this.loading = false;
       } catch (error) {
         this.loading = false;
@@ -80,13 +79,10 @@ h3 {
 }
 ul {
   list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
+  padding: 5px 0;
+  width: 100vw;
 }
 a {
-  color: #42b983;
+  color: var(--color-green);
 }
 </style>
