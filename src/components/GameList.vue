@@ -1,41 +1,30 @@
 <template>
   <div class="gamelist">
     <h1>{{ title }}</h1>
-    <h3>When working this will show a list of soon to be released games :)</h3>
     <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">
-          Pretend game link all li's will be components soon tm
-        </a>
-        <p v-if="loading">Loading...{{ url }}</p>
-        <p v-if="error">{{ error }}</p>
-        <div v-if="game">
-          <p>A game was loaded</p>
-          <router-link
-            :to="{
-              name: 'GameDetails',
-              params: {
-                id: game[0].id,
-                slug: game[0].slug,
-                name: game[0].name,
-                release: game[0].first_release_date,
-                summary: game[0].summary
-              }
-            }"
-          >
-            {{ game[0].name }}
-          </router-link>
-        </div>
-      </li>
+      <p v-if="loading">Loading...{{ url }}</p>
+      <p v-if="error">{{ error }}</p>
+      <GameLi
+        v-if="game"
+        :id="game[0].id"
+        :slug="game[0].slug"
+        :name="game[0].name"
+        :release="game[0].first_release_date"
+      />
     </ul>
   </div>
 </template>
 
 <script>
+import GameLi from "@/components/GameLi";
+
 export default {
   name: "GameList",
   props: {
     title: String
+  },
+  components: {
+    GameLi
   },
   data() {
     return {
