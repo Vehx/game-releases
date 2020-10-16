@@ -10,6 +10,7 @@
     <p v-else>
       {{ name }} releases in:
       {{ countdown }}
+      {{ now }}
     </p>
     <router-link
       :to="{
@@ -31,29 +32,36 @@
 export default {
   name: "GameList",
   props: {
-    title: String,
     id: Number,
     slug: String,
     name: String,
     release: Number
   },
   computed: {
-    countdown: new Date() - this.release * 1000,
-    isreleased: this.countdown <= 0
+    now() {
+      return new Date().getTime();
+    },
+    countdown() {
+      return this.release * 1000 - this.now;
+    },
+    isreleased() {
+      return this.countdown <= this.release;
+    }
   }
 };
 </script>
 
 <style scoped>
 h3 {
-  margin: 40px 0 0;
-  color: red;
+  color: var(--color-green);
 }
 li {
   margin: 5px 10px;
   padding: 5px;
+  border: 1px solid var(--color-green);
+  border-radius: 10px;
 }
 a {
-  color: #42b983;
+  color: var(--color-green);
 }
 </style>
