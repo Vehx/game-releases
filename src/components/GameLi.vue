@@ -1,20 +1,17 @@
 <template>
   <li class="gameli">
-    <h3>
+    <h2>
       {{ name }}
-    </h3>
+    </h2>
     <p>
       {{ name }} release{{ isReleased ? "d" : "s" }} on:
       {{ releaseDateString }}
     </p>
     <p>
       Releases in:
-      {{ currentCountdownTime }}
-      <!-- {{ formattedCountdown }} -->
+      {{ formattedCountdown }}
     </p>
-    <p>Debug numbers:</p>
-    <p>Countdown: {{ countdown }}</p>
-    <p>Now: {{ now }}</p>
+    <p>Debug numbers: Countdown: {{ countdown }}, Now: {{ now }}</p>
     <router-link
       :to="{
         name: 'GameDetails',
@@ -53,21 +50,27 @@ export default {
     },
     releaseDateString() {
       return new Intl.DateTimeFormat().format(this.release * 1000);
+    },
+    formattedCountdown() {
+      let countdown = this.currentCountdownTime;
+      let seconds = Math.floor(countdown % 60);
+      let minutes = Math.floor(countdown / 60);
+      let hours = Math.floor(minutes / 60);
+      let days = Math.floor(hours / 24);
+      minutes = Math.floor(hours % 60);
+      hours = Math.floor(days % 24);
+      return `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
     }
-    // currentCountdownTime() {
-    //   return this.countdown;
-    // }
-    // timer research link 1 https://medium.com/js-dojo/how-to-create-an-animated-countdown-timer-with-vue-89738903823f
   },
   data() {
     return {
       timeInterval: null,
-      currentCountdownTime: 100
+      currentCountdownTime: null
     };
   },
   methods: {
     startCountdown() {
-      console.log(this.countdown, this.currentCountdownTime);
+      this.currentCountdownTime = this.countdown;
       this.timeInterval = setInterval(
         () => (this.currentCountdownTime -= 1),
         1000
@@ -87,7 +90,7 @@ export default {
 </script>
 
 <style scoped>
-h3 {
+h2 {
   color: var(--color-green);
 }
 li {
