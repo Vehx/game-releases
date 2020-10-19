@@ -1,7 +1,7 @@
 <template>
   <div class="gamelist">
     <h1>{{ title }}</h1>
-    <p v-if="loading">Loading...{{ url }}</p>
+    <p v-if="loading">Loading...</p>
     <p v-if="error">{{ error }}</p>
     <ul v-if="games">
       <GameLi
@@ -25,7 +25,8 @@ import GameLi from "@/components/GameLi";
 export default {
   name: "GameList",
   props: {
-    title: String
+    title: String,
+    platform: Number
   },
   components: {
     GameLi
@@ -59,7 +60,9 @@ export default {
           // },
           // sending this in with a prop would make this a much more general component
           // 604800 is the unix time stamp of 7 days, so this grabs all games releaseing in the next 7 days
-          body: `fields *; sort first_release_date asc; where first_release_date > ${now} & first_release_date < ${now +
+          body: `fields *; sort first_release_date asc; where ${
+            this.platform ? `platforms = (${this.platform}) &` : ""
+          } first_release_date > ${now} & first_release_date < ${now +
             604800}; limit 50;`
         });
         this.games = await res.json();
@@ -76,13 +79,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.gamelist {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+h1 {
+  margin: 40px 0;
 }
 ul {
   list-style-type: none;
   padding: 5px 0;
-  width: 100vw;
+  width: 100%;
 }
 a {
   color: var(--color-green);
