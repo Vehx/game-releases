@@ -11,7 +11,6 @@
       Releases in:
       {{ formattedCountdown }}
     </p>
-    <p>Debug numbers: Countdown: {{ countdown }}, Now: {{ now }}</p>
     <router-link
       :to="{
         name: 'GameDetails',
@@ -52,13 +51,10 @@ export default {
       return new Intl.DateTimeFormat().format(this.release * 1000);
     },
     formattedCountdown() {
-      let countdown = this.currentCountdownTime;
-      let seconds = Math.floor(countdown % 60);
-      let minutes = Math.floor(countdown / 60);
-      let hours = Math.floor(minutes / 60);
-      let days = Math.floor(hours / 24);
-      minutes = Math.floor(hours % 60);
-      hours = Math.floor(days % 24);
+      let seconds = Math.floor(this.currentCountdownTime % 60);
+      let minutes = Math.floor((this.currentCountdownTime / 60) % 60);
+      let hours = Math.floor((this.currentCountdownTime / 60 / 60) % 24);
+      let days = Math.floor(this.currentCountdownTime / 60 / 60 / 24);
       return `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
     }
   },

@@ -1,13 +1,17 @@
 <template>
   <nav id="nav">
     <router-link to="/">Home</router-link>
+    <router-link to="/pc">PC</router-link>
+    <router-link to="/playstation">Playstation</router-link>
+    <router-link to="/xbox">Xbox</router-link>
+    <router-link to="/switch">Switch</router-link>
     <router-link to="/about">About</router-link>
-    <!-- <router-link to="/details">Details</router-link> -->
   </nav>
 </template>
 
 <style scoped>
 #nav {
+  width: 100%;
   display: flex;
   justify-content: center;
   padding: 30px;

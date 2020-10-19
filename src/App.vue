@@ -34,8 +34,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: var(--color-grey);
-  width: 100vw;
-  height: 100vh;
+  max-width: 100vw;
+  height: 100%;
 }
 
 .fade-enter-active,
