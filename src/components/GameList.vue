@@ -58,7 +58,9 @@ export default {
           //     "Authorization": "Bearer " + token,
           // },
           // sending this in with a prop would make this a much more general component
-          body: `fields *; sort first_release_date asc; where first_release_date > ${now}; limit 2;`
+          // 604800 is the unix time stamp of 7 days, so this grabs all games releaseing in the next 7 days
+          body: `fields *; sort first_release_date asc; where first_release_date > ${now} & first_release_date < ${now +
+            604800}; limit 50;`
         });
         this.games = await res.json();
         console.log(this.games);
