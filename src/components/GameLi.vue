@@ -53,7 +53,7 @@ export default {
     formattedCountdown() {
       let seconds = Math.floor(this.currentCountdownTime % 60);
       let minutes = Math.floor((this.currentCountdownTime / 60) % 60);
-      let hours = Math.floor((this.currentCountdownTime / 60 / 60) % 60);
+      let hours = Math.floor((this.currentCountdownTime / 60 / 60) % 24);
       let days = Math.floor(this.currentCountdownTime / 60 / 60 / 24);
       return `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
     }
