@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <div class="playstation">
     <img alt="Vue logo" src="@/assets/logo.png" />
-    <GameList title="All game releases: " />
+    <GameList title="Playstation game releases: " :platform="48" />
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 import GameList from "@/components/GameList.vue";
 
 export default {
-  name: "Home",
+  name: "Playstation",
   components: {
     GameList
   }
