@@ -1,10 +1,8 @@
 <template>
   <li class="gameli">
-    <h2>
-      {{ name }}
-    </h2>
+    <h2>{{ game.name }}</h2>
     <p>
-      {{ name }} release{{ isReleased ? "d" : "s" }} on:
+      {{ game.name }} release{{ isReleased ? "d" : "s" }} on:
       <time :datetime="releaseDateString">
         {{ releaseDateString }}
       </time>
@@ -15,14 +13,19 @@
         {{ formattedCountdown }}
       </time>
     </p>
+    <img
+      v-if="game.cover != undefined"
+      :src="coverImage"
+      :alt="'Game cover of ' + game.name"
+    />
     <router-link
       :to="{
         name: 'GameDetails',
         params: {
-          id: id,
-          slug: slug,
-          name: name,
-          release: release
+          id: game.id,
+          slug: game.slug,
+          name: game.name,
+          release: game.first_release_date
         }
       }"
     >
@@ -35,23 +38,22 @@
 export default {
   name: "GameList",
   props: {
-    id: Number,
-    slug: String,
-    name: String,
-    release: Number
+    game: Object
   },
   computed: {
     now() {
       return Math.floor(new Date().getTime() / 1000);
     },
     countdown() {
-      return this.release - this.now;
+      return this.game.first_release_date - this.now;
     },
     isReleased() {
       return this.countdown <= 0;
     },
     releaseDateString() {
-      return new Intl.DateTimeFormat().format(this.release * 1000);
+      return new Intl.DateTimeFormat().format(
+        this.game.first_release_date * 1000
+      );
     },
     formattedCountdown() {
       return `${this.countdownDays} days, ${this.countdownHours} hours, ${this.countdownMinutes} minutes, ${this.countdownSeconds} seconds`;
@@ -70,13 +72,15 @@ export default {
     },
     countdownDays() {
       return Math.floor(this.currentCountdownTime / 60 / 60 / 24);
+    },
+    coverImage() {
+      return `${process.env.VUE_APP_IMAGE_URL}t_cover_small/${this.game.cover.image_id}.jpg`;
     }
   },
   data() {
     return {
       timeInterval: null,
-      currentCountdownTime: null,
-      days: 0
+      currentCountdownTime: null
     };
   },
   methods: {

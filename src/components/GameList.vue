@@ -4,14 +4,7 @@
     <p v-if="loading">Loading...</p>
     <p v-if="error">{{ error }}</p>
     <ul v-if="games">
-      <GameLi
-        v-for="game in games"
-        :key="game.id"
-        :id="game.id"
-        :slug="game.slug"
-        :name="game.name"
-        :release="game.first_release_date"
-      />
+      <GameLi v-for="game in games" :key="game.id" :game="game" />
     </ul>
   </div>
 </template>
@@ -48,7 +41,6 @@ export default {
       // changing url to only be the base url might be a good idea
       const url = process.env.VUE_APP_API_URL;
       const now = Math.floor(new Date().getTime() / 1000);
-
       try {
         const res = await fetch(url, {
           method: "POST",
@@ -60,7 +52,7 @@ export default {
           // },
           // sending this in with a prop would make this a much more general component
           // 604800 is the unix time stamp of 7 days, so this grabs all games releaseing in the next 7 days
-          body: `fields *; sort first_release_date asc; where ${
+          body: `fields *, cover.image_id; sort first_release_date asc; where ${
             this.platform ? `platforms = (${this.platform}) &` : ""
           } first_release_date > ${now} & first_release_date < ${now +
             604800}; limit 50;`
