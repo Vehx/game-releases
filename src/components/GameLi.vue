@@ -5,11 +5,15 @@
     </h2>
     <p>
       {{ name }} release{{ isReleased ? "d" : "s" }} on:
-      {{ releaseDateString }}
+      <time :datetime="releaseDateString">
+        {{ releaseDateString }}
+      </time>
     </p>
     <p>
       Releases in:
-      {{ formattedCountdown }}
+      <time :datetime="dataFormattedCountdown">
+        {{ formattedCountdown }}
+      </time>
     </p>
     <router-link
       :to="{
@@ -36,7 +40,6 @@ export default {
     name: String,
     release: Number
   },
-
   computed: {
     now() {
       return Math.floor(new Date().getTime() / 1000);
@@ -51,17 +54,29 @@ export default {
       return new Intl.DateTimeFormat().format(this.release * 1000);
     },
     formattedCountdown() {
-      let seconds = Math.floor(this.currentCountdownTime % 60);
-      let minutes = Math.floor((this.currentCountdownTime / 60) % 60);
-      let hours = Math.floor((this.currentCountdownTime / 60 / 60) % 24);
-      let days = Math.floor(this.currentCountdownTime / 60 / 60 / 24);
-      return `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+      return `${this.countdownDays} days, ${this.countdownHours} hours, ${this.countdownMinutes} minutes, ${this.countdownSeconds} seconds`;
+    },
+    dataFormattedCountdown() {
+      return `${this.countdownDays}d ${this.countdownHours}h ${this.countdownMinutes}m ${this.countdownSeconds}s`;
+    },
+    countdownSeconds() {
+      return Math.floor(this.currentCountdownTime % 60);
+    },
+    countdownMinutes() {
+      return Math.floor((this.currentCountdownTime / 60) % 60);
+    },
+    countdownHours() {
+      return Math.floor((this.currentCountdownTime / 60 / 60) % 24);
+    },
+    countdownDays() {
+      return Math.floor(this.currentCountdownTime / 60 / 60 / 24);
     }
   },
   data() {
     return {
       timeInterval: null,
-      currentCountdownTime: null
+      currentCountdownTime: null,
+      days: 0
     };
   },
   methods: {
