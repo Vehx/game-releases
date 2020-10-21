@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 
 // learn more about router here: https://vueschool.io/lessons/vue-router-dynamic-routes
@@ -56,7 +56,7 @@ const routes = [
 
 const router = createRouter({
   linkExactActiveClass: "active-link",
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 });
 
