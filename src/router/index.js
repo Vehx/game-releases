@@ -51,6 +51,16 @@ const routes = [
     name: "GameDetails",
     component: () =>
       import(/* webpackChunkName: "GameDetails" */ "../views/GameDetails.vue")
+  },
+  {
+    path: "/404",
+    name: "NotFound",
+    component: () =>
+      import(/* webpackChunkName: "NotFound" */ "../views/NotFound.vue")
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: { name: "NotFound" }
   }
 ];
 
