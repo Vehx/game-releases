@@ -1,9 +1,6 @@
 <template>
   <div class="switch">
-    <img
-      alt="Vue logo"
-      src="//images.igdb.com/igdb/image/upload/t_thumb/pleu.jpg"
-    />
+    <img alt="Switch logo" src="@/assets/logos/logo-nintendo-switch.png" />
     <GameList title="Switch game releases: " :platform="130" />
   </div>
 </template>

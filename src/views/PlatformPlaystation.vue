@@ -1,6 +1,6 @@
 <template>
   <div class="playstation">
-    <img alt="Vue logo" src="@/assets/logo.png" />
+    <img alt="Playstation logo" src="@/assets/logos/logo-ps-4.png" />
     <GameList title="Playstation game releases: " :platform="48" />
   </div>
 </template>
