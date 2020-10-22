@@ -1,27 +1,29 @@
 <template>
-  <li class="gameli">
+  <li>
     <h2>{{ game.name }}</h2>
-    <div class="gameli__wrapper">
-      <img
-        v-if="game.cover"
-        :src="coverImage"
-        :alt="'Game cover image of ' + game.name"
-      />
-      <div class="gameli__info">
-        <p>
-          {{ game.name }} release{{ isReleased ? "d" : "s" }} on:
-          <time :datetime="releaseDateString">
+    <p class="countdown">
+      <time :datetime="dataFormattedCountdown">
+        {{ formattedCountdown }}
+      </time>
+    </p>
+    <div class="wrapper">
+      <div class="cover">
+        <img
+          v-if="game.cover"
+          :src="coverImage"
+          :alt="'Game cover image of ' + game.name"
+        />
+      </div>
+      <div class="info">
+        <p class="release">
+          <!-- {{ game.name }} release{{ isReleased ? "d" : "s" }}: -->
+          Release date:
+          <time class="date" :datetime="releaseDateString">
             {{ releaseDateString }}
           </time>
         </p>
-        <p>
-          Releases in:
-          <time :datetime="dataFormattedCountdown">
-            {{ formattedCountdown }}
-          </time>
-        </p>
-        <div v-if="game.platforms">
-          <span>Platforms: </span>
+        <div v-if="game.platforms" class="platforms">
+          Platforms:
           <PlatformIcon
             v-for="platform in game.platforms"
             :key="platform.id"
@@ -29,32 +31,30 @@
             :alt="platform.name"
           />
         </div>
-        <div v-if="game.genres">
+        <div>
           Genres:
-          <span
-            v-for="genre in game.genres"
-            :key="genre.id"
-            class="gameli__genre"
-          >
-            {{ genre.name }}
+          <span v-if="game.genres">
+            <div v-for="genre in game.genres" :key="genre.id" class="genre">
+              {{ genre.name }}
+            </div>
           </span>
+          <span v-else>N/A</span>
         </div>
+        <router-link
+          :to="{
+            name: 'GameDetails',
+            params: {
+              id: game.id,
+              slug: game.slug,
+              name: game.name,
+              release: game.first_release_date
+            }
+          }"
+        >
+          Learn more
+        </router-link>
       </div>
     </div>
-
-    <router-link
-      :to="{
-        name: 'GameDetails',
-        params: {
-          id: game.id,
-          slug: game.slug,
-          name: game.name,
-          release: game.first_release_date
-        }
-      }"
-    >
-      Read more
-    </router-link>
   </li>
 </template>
 
@@ -85,7 +85,8 @@ export default {
       );
     },
     formattedCountdown() {
-      return `${this.countdownDays} days, ${this.countdownHours} hours, ${this.countdownMinutes} minutes, ${this.countdownSeconds} seconds`;
+      // return `${this.countdownDays} days, ${this.countdownHours} hours, ${this.countdownMinutes} minutes, ${this.countdownSeconds} seconds`;
+      return `${this.countdownDays}d ${this.countdownHours}h ${this.countdownMinutes}m ${this.countdownSeconds}s`;
     },
     dataFormattedCountdown() {
       return `${this.countdownDays}d ${this.countdownHours}h ${this.countdownMinutes}m ${this.countdownSeconds}s`;
@@ -134,17 +135,56 @@ export default {
 </script>
 
 <style scoped>
-h2 {
-  color: var(--color-green);
-}
 li {
   max-width: 100%;
   margin: 5px 10px;
   padding: 5px;
-  border: 1px solid var(--color-green);
+  border: 1px solid var(--color-highlight);
   border-radius: 10px;
 }
+h2 {
+  color: var(--color-highlight);
+}
+.countdown {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 5px 0;
+}
+.wrapper {
+  padding: 5px;
+  display: flex;
+}
+.cover {
+  height: 128px;
+  width: 90px;
+  align-self: flex-start;
+}
+.info {
+  padding: 0 5px 5px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: flex-start;
+  text-align: left;
+}
+.date {
+  font-weight: bold;
+}
+.platforms {
+  margin: 5px 0;
+}
+.genre {
+  display: inline-block;
+  border: 1px solid var(--color-highlight);
+  border-radius: 5px;
+  background-color: var(--color-highlight);
+  margin-right: 5px;
+  padding: 0 2px;
+  color: var(--color-background-main);
+}
 a {
-  color: var(--color-green);
+  font-weight: bold;
+  color: var(--color-highlight);
+  margin-top: 5px;
 }
 </style>
