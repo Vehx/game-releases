@@ -21,6 +21,7 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: var(--color-background-main);
 }
 
 :root {
@@ -36,7 +37,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: var(--color-normal);
-  background-color: var(--color-background-main);
   max-width: 100vw;
   height: 100%;
 }

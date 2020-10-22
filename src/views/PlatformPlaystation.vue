@@ -16,3 +16,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+img {
+  border-radius: 15px;
+  border: 10px solid var(--color-background-faded);
+  background-color: var(--color-background-faded);
+  /* height: 160px;
+  width: 284px; */
+}
+</style>
