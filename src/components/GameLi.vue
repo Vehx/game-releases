@@ -156,14 +156,13 @@ h2 {
 }
 .cover {
   height: 128px;
-  width: 90px;
+  min-width: 90px;
   align-self: flex-start;
 }
 .info {
   padding: 0 5px 5px;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: flex-start;
   text-align: left;
 }
