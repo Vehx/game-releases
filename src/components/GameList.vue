@@ -12,6 +12,8 @@
 <script>
 // this is what cover.url will return in fetch
 // //images.igdb.com/igdb/image/upload/t_thumb/co2dc0.jpg
+// now using just the image id, co2dc0, from above and base url is in env
+// t_thumb part is not in base url and can be set to what is wanted, like t_cover_small
 // there is a rate limit of around 600 images per minute so caching would be great
 import GameLi from "@/components/GameLi";
 
@@ -52,7 +54,7 @@ export default {
           // },
           // sending this in with a prop would make this a much more general component
           // 604800 is the unix time stamp of 7 days, so this grabs all games releaseing in the next 7 days
-          body: `fields *, cover.image_id; sort first_release_date asc; where ${
+          body: `fields *, cover.image_id, genres.name, platforms.*, keywords.*; sort first_release_date asc; where ${
             this.platform ? `platforms = (${this.platform}) &` : ""
           } first_release_date > ${now} & first_release_date < ${now +
             604800}; limit 50;`

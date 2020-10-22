@@ -1,23 +1,47 @@
 <template>
   <li class="gameli">
     <h2>{{ game.name }}</h2>
-    <p>
-      {{ game.name }} release{{ isReleased ? "d" : "s" }} on:
-      <time :datetime="releaseDateString">
-        {{ releaseDateString }}
-      </time>
-    </p>
-    <p>
-      Releases in:
-      <time :datetime="dataFormattedCountdown">
-        {{ formattedCountdown }}
-      </time>
-    </p>
-    <img
-      v-if="game.cover != undefined"
-      :src="coverImage"
-      :alt="'Game cover of ' + game.name"
-    />
+    <div class="gameli__wrapper">
+      <img
+        v-if="game.cover"
+        :src="coverImage"
+        :alt="'Game cover image of ' + game.name"
+      />
+      <div class="gameli__info">
+        <p>
+          {{ game.name }} release{{ isReleased ? "d" : "s" }} on:
+          <time :datetime="releaseDateString">
+            {{ releaseDateString }}
+          </time>
+        </p>
+        <p>
+          Releases in:
+          <time :datetime="dataFormattedCountdown">
+            {{ formattedCountdown }}
+          </time>
+        </p>
+        <div v-if="game.platforms">
+          <span>Platforms: </span>
+          <PlatformIcon
+            v-for="platform in game.platforms"
+            :key="platform.id"
+            :src="platform.id"
+            :alt="platform.name"
+          />
+        </div>
+        <div v-if="game.genres">
+          Genres:
+          <span
+            v-for="genre in game.genres"
+            :key="genre.id"
+            class="gameli__genre"
+          >
+            {{ genre.name }}
+          </span>
+        </div>
+      </div>
+    </div>
+
     <router-link
       :to="{
         name: 'GameDetails',
@@ -35,10 +59,15 @@
 </template>
 
 <script>
+import PlatformIcon from "@/components/PlatformIcon";
+
 export default {
   name: "GameList",
   props: {
     game: Object
+  },
+  components: {
+    PlatformIcon
   },
   computed: {
     now() {
