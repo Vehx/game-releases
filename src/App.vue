@@ -24,8 +24,10 @@ export default {
 }
 
 :root {
-  --color-green: #42b983;
-  --color-grey: #2c3e50;
+  --color-highlight: #42b983;
+  --color-normal: #e4edff;
+  --color-background-main: black;
+  --color-background-faded: #2c3e50;
 }
 
 #app {
@@ -33,7 +35,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: var(--color-grey);
+  color: var(--color-normal);
+  background-color: var(--color-background-main);
   max-width: 100vw;
   height: 100%;
 }

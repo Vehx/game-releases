@@ -89,6 +89,6 @@ ul {
   width: 100%;
 }
 a {
-  color: var(--color-green);
+  color: var(--color-highlight);
 }
 </style>
