@@ -5,14 +5,8 @@
     </p>
     <p v-if="error"></p>
     <div v-if="game">
-      <!-- <p>Current game id: {{ game.id }}</p>
-      <p>Current game slug: {{ game.slug }}</p> -->
       <h1>{{ game.name }}</h1>
-      <p class="countdown">
-        <time :datetime="formattedCountdown">
-          {{ formattedCountdown }}
-        </time>
-      </p>
+      <Countdown :countdown="countdown" />
       <div class="cover">
         <img
           v-if="game.cover"
@@ -115,10 +109,12 @@
 </template>
 <script>
 import PlatformIcon from "@/components/PlatformIcon";
+import Countdown from "@/components/Countdown";
 
 export default {
   components: {
-    PlatformIcon
+    PlatformIcon,
+    Countdown
   },
   data() {
     return {
@@ -127,9 +123,7 @@ export default {
       error: null,
       url: process.env.VUE_APP_API_URL,
       imageUrl: process.env.VUE_APP_IMAGE_URL,
-      windowWidth: window.innerWidth - 20,
-      timeInterval: null,
-      currentCountdownTime: null
+      windowWidth: window.innerWidth - 20
     };
   },
   computed: {
@@ -149,21 +143,6 @@ export default {
       return new Intl.DateTimeFormat().format(
         this.game.first_release_date * 1000
       );
-    },
-    formattedCountdown() {
-      return `${this.countdownDays}d ${this.countdownHours}h ${this.countdownMinutes}m ${this.countdownSeconds}s`;
-    },
-    countdownSeconds() {
-      return Math.floor(this.currentCountdownTime % 60);
-    },
-    countdownMinutes() {
-      return Math.floor((this.currentCountdownTime / 60) % 60);
-    },
-    countdownHours() {
-      return Math.floor((this.currentCountdownTime / 60 / 60) % 24);
-    },
-    countdownDays() {
-      return Math.floor(this.currentCountdownTime / 60 / 60 / 24);
     },
     coverImage() {
       return `${this.imageUrl}t_cover_small/${this.game.cover.image_id}.jpg`;
@@ -191,26 +170,12 @@ export default {
         const result = await res.json();
         this.game = result[0];
         console.log(this.game);
-        this.startCountdown();
         this.loading = false;
       } catch (error) {
         this.loading = false;
         this.error = error;
       }
-    },
-    startCountdown() {
-      this.currentCountdownTime = this.countdown;
-      this.timeInterval = setInterval(
-        () => (this.currentCountdownTime -= 1),
-        1000
-      );
-    },
-    clearTimeInterval() {
-      clearInterval(this.timeInterval);
     }
-  },
-  beforeUnmount() {
-    this.clearTimeInterval();
   }
 };
 </script>
@@ -218,11 +183,6 @@ export default {
 <style scoped>
 h1 {
   color: var(--color-highlight);
-}
-.countdown {
-  font-weight: bold;
-  font-size: 20px;
-  margin: 5px 0;
 }
 .wrapper {
   padding: 5px;

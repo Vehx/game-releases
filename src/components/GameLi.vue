@@ -1,11 +1,7 @@
 <template>
   <li>
     <h2>{{ game.name }}</h2>
-    <p class="countdown">
-      <time :datetime="formattedCountdown">
-        {{ formattedCountdown }}
-      </time>
-    </p>
+    <Countdown :key="game.id" :countdown="countdown" />
     <div class="wrapper">
       <div class="cover">
         <img
@@ -60,6 +56,7 @@
 
 <script>
 import PlatformIcon from "@/components/PlatformIcon";
+import Countdown from "@/components/Countdown";
 
 export default {
   name: "GameList",
@@ -67,7 +64,8 @@ export default {
     game: Object
   },
   components: {
-    PlatformIcon
+    PlatformIcon,
+    Countdown
   },
   computed: {
     now() {
@@ -84,48 +82,9 @@ export default {
         this.game.first_release_date * 1000
       );
     },
-    formattedCountdown() {
-      return `${this.countdownDays}d ${this.countdownHours}h ${this.countdownMinutes}m ${this.countdownSeconds}s`;
-    },
-    countdownSeconds() {
-      return Math.floor(this.currentCountdownTime % 60);
-    },
-    countdownMinutes() {
-      return Math.floor((this.currentCountdownTime / 60) % 60);
-    },
-    countdownHours() {
-      return Math.floor((this.currentCountdownTime / 60 / 60) % 24);
-    },
-    countdownDays() {
-      return Math.floor(this.currentCountdownTime / 60 / 60 / 24);
-    },
     coverImage() {
       return `${process.env.VUE_APP_IMAGE_URL}t_cover_small/${this.game.cover.image_id}.jpg`;
     }
-  },
-  data() {
-    return {
-      timeInterval: null,
-      currentCountdownTime: null
-    };
-  },
-  methods: {
-    startCountdown() {
-      this.currentCountdownTime = this.countdown;
-      this.timeInterval = setInterval(
-        () => (this.currentCountdownTime -= 1),
-        1000
-      );
-    },
-    clearTimeInterval() {
-      clearInterval(this.timeInterval);
-    }
-  },
-  mounted() {
-    this.startCountdown();
-  },
-  beforeUnmount() {
-    this.clearTimeInterval();
   }
 };
 </script>
@@ -140,11 +99,6 @@ li {
 }
 h2 {
   color: var(--color-highlight);
-}
-.countdown {
-  font-weight: bold;
-  font-size: 20px;
-  margin: 5px 0;
 }
 .wrapper {
   padding: 5px;
