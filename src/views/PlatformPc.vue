@@ -1,15 +1,11 @@
 <template>
   <div class="pc">
-    <img
-      alt="Vue logo"
-      src="//images.igdb.com/igdb/image/upload/t_thumb/irwvwpl023f8y19tidgq.jpg"
-    />
+    <img alt="PC logo" src="@/assets/logos/logo-win-10.png" />
     <GameList title="PC game releases: " :platform="6" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import GameList from "@/components/GameList.vue";
 
 export default {

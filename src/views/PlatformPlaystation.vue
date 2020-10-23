@@ -1,6 +1,6 @@
 <template>
   <div class="playstation">
-    <img alt="Vue logo" src="@/assets/logo.png" />
+    <img alt="Playstation logo" src="@/assets/logos/logo-ps-4.png" />
     <GameList title="Playstation game releases: " :platform="48" />
   </div>
 </template>
@@ -16,3 +16,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+img {
+  border-radius: 15px;
+  border: 10px solid var(--color-background-faded);
+  background-color: var(--color-background-faded);
+  /* height: 160px;
+  width: 284px; */
+}
+</style>

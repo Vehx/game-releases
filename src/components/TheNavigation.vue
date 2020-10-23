@@ -10,20 +10,20 @@
 </template>
 
 <style scoped>
+/* temp styling before making hamburger menu */
 #nav {
   width: 100%;
   display: flex;
-  justify-content: center;
-  padding: 30px;
+  justify-content: space-around;
+  padding: 30px 0;
 }
 
-#nav a {
+a {
   font-weight: bold;
-  color: #2c3e50;
-  padding: 0 10px;
+  color: var(--color-normal);
 }
 
-#nav a.active-link {
-  color: #42b983;
+a.active-link {
+  color: var(--color-highlight);
 }
 </style>
