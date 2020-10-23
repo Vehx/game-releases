@@ -17,8 +17,20 @@
       And a watchlist that you can add games to and keep track of. (Only saved
       locally)
     </p>
+    <p>Ominous test timer.. very spooky</p>
+    <Countdown :countdown="20" class="countdown" />
   </div>
 </template>
+
+<script>
+import Countdown from "@/components/Countdown";
+
+export default {
+  components: {
+    Countdown
+  }
+};
+</script>
 
 <style scoped>
 .about {
@@ -32,5 +44,10 @@ h1 {
 }
 p {
   margin-bottom: 1rem;
+}
+.countdown {
+  color: red;
+  font-size: 30px;
+  font-weight: 100;
 }
 </style>
