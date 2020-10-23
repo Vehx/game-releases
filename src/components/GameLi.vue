@@ -2,7 +2,7 @@
   <li>
     <h2>{{ game.name }}</h2>
     <p class="countdown">
-      <time :datetime="dataFormattedCountdown">
+      <time :datetime="formattedCountdown">
         {{ formattedCountdown }}
       </time>
     </p>
@@ -85,10 +85,6 @@ export default {
       );
     },
     formattedCountdown() {
-      // return `${this.countdownDays} days, ${this.countdownHours} hours, ${this.countdownMinutes} minutes, ${this.countdownSeconds} seconds`;
-      return `${this.countdownDays}d ${this.countdownHours}h ${this.countdownMinutes}m ${this.countdownSeconds}s`;
-    },
-    dataFormattedCountdown() {
       return `${this.countdownDays}d ${this.countdownHours}h ${this.countdownMinutes}m ${this.countdownSeconds}s`;
     },
     countdownSeconds() {
