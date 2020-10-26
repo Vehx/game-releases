@@ -1,7 +1,7 @@
 <template>
   <li>
     <h2>{{ game.name }}</h2>
-    <Countdown :key="game.id" :countdown="countdown" />
+    <Countdown :key="game.id" :countdown="countdown" class="countdown" />
     <div class="wrapper">
       <div class="cover">
         <img
@@ -12,7 +12,6 @@
       </div>
       <div class="info">
         <p class="release">
-          <!-- {{ game.name }} release{{ isReleased ? "d" : "s" }}: -->
           Release date:
           <time class="date" :datetime="releaseDateString">
             {{ releaseDateString }}
@@ -20,19 +19,21 @@
         </p>
         <div v-if="game.platforms" class="platforms">
           Platforms:
-          <PlatformIcon
+          <TagItem
             v-for="platform in game.platforms"
             :key="platform.id"
-            :src="platform.id"
-            :alt="platform.name"
+            :tag="platform.name"
           />
         </div>
         <div>
           Genres:
           <span v-if="game.genres">
-            <div v-for="genre in game.genres" :key="genre.id" class="genre">
-              {{ genre.name }}
-            </div>
+            <TagItem
+              v-for="genre in game.genres"
+              :key="genre.id"
+              :tag="genre.name"
+              class="genre"
+            />
           </span>
           <span v-else>N/A</span>
         </div>
@@ -41,9 +42,7 @@
             name: 'GameDetails',
             params: {
               id: game.id,
-              slug: game.slug,
-              name: game.name,
-              release: game.first_release_date
+              slug: game.slug
             }
           }"
         >
@@ -55,7 +54,7 @@
 </template>
 
 <script>
-import PlatformIcon from "@/components/PlatformIcon";
+import TagItem from "@/components/TagItem";
 import Countdown from "@/components/Countdown";
 
 export default {
@@ -64,7 +63,7 @@ export default {
     game: Object
   },
   components: {
-    PlatformIcon,
+    TagItem,
     Countdown
   },
   computed: {
@@ -99,6 +98,9 @@ li {
 }
 h2 {
   color: var(--color-highlight);
+}
+.countdown {
+  font-size: 24px;
 }
 .wrapper {
   padding: 5px;
