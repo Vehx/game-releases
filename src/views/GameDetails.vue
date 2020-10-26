@@ -1,65 +1,124 @@
 <template>
-  <div>
-    <p v-if="loading">
+  <div class="wrapper">
+    <p v-if="loading" class="loading">
       Loading...
     </p>
     <p v-if="error"></p>
     <div v-if="game">
       <h1>{{ game.name }}</h1>
       <Countdown :countdown="countdown" />
-      <div class="cover">
-        <img
-          v-if="game.cover"
-          :src="coverImage"
-          :alt="'Game cover image of ' + game.name"
-        />
+      <div v-if="game.cover" class="cover">
+        <img :src="coverImage" :alt="'Game cover image of ' + game.name" />
       </div>
-      <p>
-        Release date:
-        <span class="date">
+      <div class="release-date">
+        <h3>
+          Release date:
+        </h3>
+        <p class="date">
           {{ releaseDateString }}
-        </span>
-      </p>
-      <p v-if="game.summary" class="summary">Summary: {{ game.summary }}</p>
-      <p v-if="game.storyline" class="storyline">
-        Storyline: {{ game.storyline }}
-      </p>
-      <div v-if="game.platforms" class="platforms">
-        Platforms:
-        <PlatformIcon
-          v-for="platform in game.platforms"
-          :key="platform.id"
-          :src="platform.id"
-          :alt="platform.name"
+        </p>
+      </div>
+      <div v-if="game.summary" class="summary">
+        <h3>
+          Summary:
+        </h3>
+        <p>
+          {{ game.summary }}
+        </p>
+      </div>
+      <div v-if="game.storyline" class="storyline">
+        <h3>
+          Storyline:
+        </h3>
+        <p>
+          {{ game.storyline }}
+        </p>
+      </div>
+      <div class="info">
+        <h3 class="info-title">Game info:</h3>
+        <div class="platforms">
+          <h3>
+            Platforms:
+          </h3>
+          <span v-if="game.platforms">
+            <TagItem
+              v-for="platform in game.platforms"
+              :key="platform.id"
+              :tag="platform.name"
+            />
+          </span>
+          <span v-else>TBA</span>
+        </div>
+        <div class="genres">
+          <h3>
+            Genres:
+          </h3>
+          <span v-if="game.genres">
+            <TagItem
+              v-for="genre in game.genres"
+              :key="genre.id"
+              :tag="genre.name"
+            />
+          </span>
+          <span v-else>N/A</span>
+        </div>
+        <div class="modes">
+          <h3>
+            Game modes:
+          </h3>
+          <span v-if="game.game_modes">
+            <TagItem
+              v-for="mode in game.game_modes"
+              :key="mode.id"
+              :tag="mode.name"
+            />
+          </span>
+          <span v-else>N/A</span>
+        </div>
+        <div class="player-perspectives">
+          <h3>
+            Player prespectives:
+          </h3>
+          <span v-if="game.player_perspectives">
+            <TagItem
+              v-for="prespective in game.player_perspectives"
+              :key="prespective.id"
+              :tag="prespective.name"
+            />
+          </span>
+          <span v-else>N/A</span>
+        </div>
+        <div v-if="game.themes" class="themes">
+          <h3>
+            Themes:
+          </h3>
+          <span>
+            <TagItem
+              v-for="theme in game.themes"
+              :key="theme.id"
+              :tag="theme.name"
+            />
+          </span>
+        </div>
+        <div class="keywords">
+          <h3>
+            Tags:
+          </h3>
+          <span v-if="game.keywords">
+            <TagItem
+              v-for="keyword in game.keywords"
+              :key="keyword.id"
+              :tag="keyword.name"
+            />
+          </span>
+          <span v-else>N/A</span>
+        </div>
+        <ReleaseDateList
+          v-if="game.release_dates"
+          :dates="game.release_dates"
         />
       </div>
-      <div class="genres">
-        Genres:
-        <span v-if="game.genres">
-          <div v-for="genre in game.genres" :key="genre.id" class="genre">
-            {{ genre.name }}
-          </div>
-        </span>
-        <span v-else>N/A</span>
-      </div>
-      <div class="modes">
-        Game modes:
-        <span v-if="game.game_modes">
-          <div v-for="modes in game.game_modes" :key="modes.id" class="mode">
-            {{ modes.name }}
-          </div>
-        </span>
-        <span v-else>N/A</span>
-      </div>
-      <div class="tags">
-        Tags:
-        <span v-if="game.keywords">
-          <div v-for="keyword in game.keywords" :key="keyword.id" class="tag">
-            {{ keyword.name }}
-          </div>
-        </span>
-        <span v-else>N/A</span>
-      </div>
+
       <div v-if="game.screenshots" class="screenshot">
         <!-- this works just using one for testing -->
         <!-- <img
@@ -73,6 +132,7 @@
             `${imageUrl}t_screenshot_med/${game.screenshots[0].image_id}.jpg`
           "
           :alt="game.screenshots[0].name"
+          loading="lazy"
         />
       </div>
       <div v-if="game.videos" class="videos">
@@ -94,27 +154,22 @@
           allowfullscreen
         ></iframe>
       </div>
-      <div v-if="game.websites" class="links">
-        External website links:
-        <ul v-for="link in game.websites" :key="link.id">
-          <li>
-            <a class="link" :href="link.url" target="_blank" norel noopener>
-              {{ link.url }}
-            </a>
-          </li>
-        </ul>
-      </div>
+      <ExternalLinkList v-if="game.websites" :links="game.websites" />
     </div>
   </div>
 </template>
 <script>
-import PlatformIcon from "@/components/PlatformIcon";
 import Countdown from "@/components/Countdown";
+import TagItem from "@/components/TagItem";
+import ReleaseDateList from "@/components/ReleaseDateList";
+import ExternalLinkList from "@/components/ExternalLinkList";
 
 export default {
   components: {
-    PlatformIcon,
-    Countdown
+    Countdown,
+    TagItem,
+    ReleaseDateList,
+    ExternalLinkList
   },
   data() {
     return {
@@ -165,11 +220,12 @@ export default {
           //     "Client-ID": clientID,
           //     "Authorization": "Bearer " + token,
           // },
-          body: `fields *, cover.image_id, game_modes.name, genres.name, platforms.name, player_perspectives.name, release_dates.*, screenshots.*, keywords.name, themes.*, videos.*, websites.*; where slug = "${this.slug}";`
+          body: `fields name, first_release_date, cover.image_id, game_modes.name, genres.name, platforms.name, player_perspectives.name, release_dates.date, release_dates.platform.name, release_dates.region, screenshots.*, keywords.name, multiplayer_modes.*, themes.name, videos.*, websites.category, websites.url; where slug = "${this.slug}";`
         });
         const result = await res.json();
         this.game = result[0];
         console.log(this.game);
+        console.log(this.game.websites);
         this.loading = false;
       } catch (error) {
         this.loading = false;
@@ -181,41 +237,60 @@ export default {
 </script>
 
 <style scoped>
-h1 {
+h1,
+h3 {
   color: var(--color-highlight);
 }
 .wrapper {
-  padding: 5px;
   display: flex;
+}
+.loading {
+  min-width: 100%;
+  min-height: 100%;
+  text-align: center;
 }
 .cover {
   height: 128px;
   min-width: 90px;
   align-self: flex-start;
 }
-.info {
-  padding: 0 5px 5px;
+.release-date {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem 0;
 }
 .date {
+  margin-left: 5px;
   font-weight: bold;
+  font-size: 18.72px;
 }
-.platforms {
-  margin: 5px 0;
+.summary,
+.storyline {
+  padding: 0 1rem;
+  margin: 0.8rem 0;
 }
-.genre,
-.mode,
-.tag {
-  display: inline-block;
-  border: 1px solid var(--color-highlight);
-  border-radius: 5px;
-  background-color: var(--color-highlight);
-  margin-right: 5px;
-  padding: 0 2px;
-  color: var(--color-background-main);
+.info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 0.5rem 0;
+}
+.info .info-title {
+  color: var(--color-highlight);
+  text-align: center;
+}
+.info h3 {
+  display: inline;
+  color: var(--color-normal);
+}
+.info > div {
+  margin: 0.2rem 0.2rem;
+  padding: 0 1rem;
+}
+.release-dates,
+.screenshot {
+  padding: 0;
 }
 img {
   max-width: 100%;
