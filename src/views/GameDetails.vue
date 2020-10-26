@@ -132,6 +132,7 @@
             `${imageUrl}t_screenshot_med/${game.screenshots[0].image_id}.jpg`
           "
           :alt="game.screenshots[0].name"
+          loading="lazy"
         />
       </div>
       <div v-if="game.videos" class="videos">
@@ -153,21 +154,7 @@
           allowfullscreen
         ></iframe>
       </div>
-      <div v-if="game.websites" class="links">
-        External website links:
-        <ul v-for="link in game.websites" :key="link.id">
-          <li>
-            <a
-              class="link"
-              :href="link.url"
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-            >
-              {{ link.url }}
-            </a>
-          </li>
-        </ul>
-      </div>
+      <ExternalLinkList v-if="game.websites" :links="game.websites" />
     </div>
   </div>
 </template>
@@ -175,12 +162,14 @@
 import Countdown from "@/components/Countdown";
 import TagItem from "@/components/TagItem";
 import ReleaseDateList from "@/components/ReleaseDateList";
+import ExternalLinkList from "@/components/ExternalLinkList";
 
 export default {
   components: {
     Countdown,
     TagItem,
-    ReleaseDateList
+    ReleaseDateList,
+    ExternalLinkList
   },
   data() {
     return {
@@ -236,7 +225,7 @@ export default {
         const result = await res.json();
         this.game = result[0];
         console.log(this.game);
-        console.log(this.game.release_dates);
+        console.log(this.game.websites);
         this.loading = false;
       } catch (error) {
         this.loading = false;
