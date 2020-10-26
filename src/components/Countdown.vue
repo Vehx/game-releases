@@ -1,9 +1,9 @@
 <template>
-  <div class="countdown">
+  <h2 class="countdown">
     <time :datetime="formatted">
       {{ formatted }}
     </time>
-  </div>
+  </h2>
 </template>
 
 <script>
@@ -67,7 +67,7 @@ export default {
 <style scoped>
 .countdown {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 30px;
   margin: 5px 0;
 }
 </style>
