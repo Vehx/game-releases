@@ -1,5 +1,5 @@
 <template>
-  <div class="tag" title="Tag">
+  <div class="tag" :title="tag">
     {{ tag }}
   </div>
 </template>
