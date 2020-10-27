@@ -114,6 +114,7 @@
           </span>
           <span v-else>N/A</span>
         </div>
+        <CompaniesList :list="game.involved_companies" />
         <ReleaseDateList
           v-if="game.release_dates"
           :dates="game.release_dates"
@@ -164,13 +165,15 @@ import Countdown from "@/components/Countdown";
 import TagItem from "@/components/TagItem";
 import ReleaseDateList from "@/components/ReleaseDateList";
 import ExternalLinkList from "@/components/ExternalLinkList";
+import CompaniesList from "@/components/CompaniesList";
 
 export default {
   components: {
     Countdown,
     TagItem,
     ReleaseDateList,
-    ExternalLinkList
+    ExternalLinkList,
+    CompaniesList
   },
   data() {
     return {
@@ -221,12 +224,35 @@ export default {
           //     "Client-ID": clientID,
           //     "Authorization": "Bearer " + token,
           // },
-          body: `fields name, first_release_date, cover.image_id, game_modes.name, genres.name, platforms.name, player_perspectives.name, release_dates.date, release_dates.platform.name, release_dates.region, screenshots.*, keywords.name, multiplayer_modes.*, themes.name, videos.*, websites.category, websites.url; where slug = "${this.slug}";`
+          body: `
+          fields name,
+          first_release_date,
+          cover.image_id,
+          game_modes.name,
+          genres.name,
+          involved_companies.*,
+          involved_companies.company.*,
+          involved_companies.company.websites.*,
+          platforms.name,
+          player_perspectives.name,
+          release_dates.date,
+          release_dates.platform.name,
+          release_dates.region,
+          screenshots.*,
+          storyline,
+          summary,
+          keywords.name,
+          multiplayer_modes.*,
+          themes.name,
+          videos.*,
+          websites.category,
+          websites.url;
+          where slug = "${this.slug}";`
         });
         const result = await res.json();
         this.game = result[0];
         console.log(this.game);
-        console.log(this.game.websites);
+        console.log(this.game.involved_companies);
         this.loading = false;
       } catch (error) {
         this.loading = false;
@@ -295,10 +321,5 @@ h3 {
 }
 img {
   max-width: 100%;
-}
-a {
-  font-weight: bold;
-  color: var(--color-highlight);
-  margin-top: 5px;
 }
 </style>
