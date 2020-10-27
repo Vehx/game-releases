@@ -88,17 +88,18 @@
           </span>
           <span v-else>N/A</span>
         </div>
-        <div v-if="game.themes" class="themes">
+        <div class="themes">
           <h3>
             Themes:
           </h3>
-          <span>
+          <span v-if="game.themes">
             <TagItem
               v-for="theme in game.themes"
               :key="theme.id"
               :tag="theme.name"
             />
           </span>
+          <span v-else>N/A</span>
         </div>
         <div class="keywords">
           <h3>
