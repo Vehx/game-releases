@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="@/assets/logo.png" />
+    <img alt="Vue logo" src="@/assets/logos/logo-home.png" />
     <GameList title="All game releases: " />
   </div>
 </template>
