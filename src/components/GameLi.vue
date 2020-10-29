@@ -90,6 +90,10 @@ export default {
 
 <style scoped>
 li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   max-width: 100%;
   margin: 0.5rem 0.6rem;
   padding: 0.5rem;
@@ -105,6 +109,7 @@ h2 {
 .wrapper {
   padding: 0.4rem;
   display: flex;
+  max-width: 500px;
 }
 .cover {
   height: 128px;

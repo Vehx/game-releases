@@ -1,6 +1,9 @@
 <template>
   <div class="gamelist">
-    <h1>{{ title }}</h1>
+    <div class="title">
+      <h1>{{ title }}</h1>
+      <h4>(Next 7 days)</h4>
+    </div>
     <p v-if="loading">Loading...</p>
     <p v-if="error">{{ error }}</p>
     <ul v-if="games">
@@ -60,6 +63,7 @@ export default {
             604800}; limit 50;`
         });
         this.games = await res.json();
+        // remove this when done
         console.log(this.games);
         this.loading = false;
       } catch (error) {
@@ -80,15 +84,12 @@ export default {
   justify-content: center;
   align-items: center;
 }
-h1 {
+.title {
   margin: 40px 0;
 }
 ul {
   list-style-type: none;
   padding: 5px 0;
   width: 100%;
-}
-a {
-  color: var(--color-highlight);
 }
 </style>

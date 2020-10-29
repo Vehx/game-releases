@@ -125,4 +125,7 @@ export default {
 h3 {
   display: inline;
 }
+.companies-list div {
+  margin: 0.2rem 0;
+}
 </style>

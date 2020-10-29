@@ -297,6 +297,10 @@ h3 {
   padding: 0 1rem;
   margin: 0.8rem 0;
 }
+.summary h3,
+.storyline h3 {
+  margin-bottom: 0.5rem;
+}
 .info {
   display: flex;
   flex-direction: column;
