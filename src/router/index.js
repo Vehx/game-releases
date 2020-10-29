@@ -67,7 +67,12 @@ const routes = [
 const router = createRouter({
   linkExactActiveClass: "active-link",
   history: createWebHistory(),
-  routes
+  routes,
+  // this makes it so when clicken a router link leading to the page user is currently on
+  // it scrolls to the top of the page
+  scrollBehavior() {
+    document.getElementById("app").scrollIntoView();
+  }
 });
 
 export default router;
