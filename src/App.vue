@@ -21,7 +21,6 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: var(--color-background-main);
 }
 
 :root {
@@ -31,7 +30,12 @@ export default {
   --color-background-faded: #2c3e50;
 }
 
+html {
+  background-color: var(--color-background-main);
+}
+
 #app {
+  /* TODO: change to font of choosing */
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -39,6 +43,7 @@ export default {
   color: var(--color-normal);
   max-width: 100vw;
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 .fade-enter-active,

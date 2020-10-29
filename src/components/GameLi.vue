@@ -91,8 +91,8 @@ export default {
 <style scoped>
 li {
   max-width: 100%;
-  margin: 5px 10px;
-  padding: 5px;
+  margin: 0.5rem 0.6rem;
+  padding: 0.5rem;
   border: 1px solid var(--color-highlight);
   border-radius: 10px;
 }
@@ -103,7 +103,7 @@ h2 {
   font-size: 24px;
 }
 .wrapper {
-  padding: 5px;
+  padding: 0.4rem;
   display: flex;
 }
 .cover {
@@ -112,7 +112,7 @@ h2 {
   align-self: flex-start;
 }
 .info {
-  padding: 0 5px 5px;
+  padding: 0 0.4rem 0.4rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -122,20 +122,20 @@ h2 {
   font-weight: bold;
 }
 .platforms {
-  margin: 5px 0;
+  margin: 0.4rem 0;
 }
 .genre {
   display: inline-block;
   border: 1px solid var(--color-highlight);
   border-radius: 5px;
   background-color: var(--color-highlight);
-  margin-right: 5px;
+  margin-right: 0.4rem;
   padding: 0 2px;
   color: var(--color-background-main);
 }
 a {
   font-weight: bold;
   color: var(--color-highlight);
-  margin-top: 5px;
+  margin-top: 0.4rem;
 }
 </style>
