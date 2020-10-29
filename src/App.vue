@@ -21,6 +21,7 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 :root {
@@ -43,7 +44,6 @@ html {
   color: var(--color-normal);
   max-width: 100vw;
   height: 100%;
-  scroll-behavior: smooth;
 }
 
 .fade-enter-active,
