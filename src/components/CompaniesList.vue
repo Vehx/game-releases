@@ -16,7 +16,7 @@
           <TagItem :tag="company.company.name" />
         </a>
       </span>
-      <span v-else>TBA</span>
+      <span v-if="!hasDevelopers">TBA</span>
     </div>
     <div>
       <h3>
@@ -34,7 +34,7 @@
           <TagItem :tag="company.company.name" />
         </a>
       </span>
-      <span v-else>TBA</span>
+      <span v-if="!hasPublishers">TBA</span>
     </div>
     <div>
       <h3>
@@ -52,7 +52,7 @@
           <TagItem :tag="company.company.name" />
         </a>
       </span>
-      <span v-else>TBA</span>
+      <span v-if="!hasSupporting">TBA</span>
     </div>
   </div>
 </template>
@@ -67,15 +67,22 @@ export default {
   components: {
     TagItem
   },
+  data() {
+    return {
+      hasDevelopers: false,
+      hasPublishers: false,
+      hasSupporting: false
+    };
+  },
   computed: {
     developers() {
-      return this.getCompanies(this.list, "developer");
+      return this.getDevelopers();
     },
     publishers() {
-      return this.getCompanies(this.list, "publisher");
+      return this.getPublishers();
     },
     supporting() {
-      return this.getCompanies(this.list, "supporting");
+      return this.getSupporting();
     }
   },
   methods: {
@@ -86,6 +93,27 @@ export default {
         if (company[category]) {
           result.push(company);
         }
+      }
+      return result;
+    },
+    getDevelopers() {
+      const result = this.getCompanies(this.list, "developer");
+      if (result[0]) {
+        this.hasDevelopers = true;
+      }
+      return result;
+    },
+    getPublishers() {
+      const result = this.getCompanies(this.list, "publisher");
+      if (result[0]) {
+        this.hasPublishers = true;
+      }
+      return result;
+    },
+    getSupporting() {
+      const result = this.getCompanies(this.list, "supporting");
+      if (result[0]) {
+        this.hasSupporting = true;
       }
       return result;
     }
