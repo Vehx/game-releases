@@ -9,9 +9,9 @@
           v-for="company in developers"
           :key="company.id"
           :href="
-            company.company.websites ? company.company.websites[0].url : ''
+            company.company.websites ? company.company.websites[0].url : '#'
           "
-          rel=""
+          rel="noopener nofollow"
         >
           <TagItem :tag="company.company.name" />
         </a>
@@ -27,9 +27,9 @@
           v-for="company in publishers"
           :key="company.id"
           :href="
-            company.company.websites ? company.company.websites[0].url : ''
+            company.company.websites ? company.company.websites[0].url : '#'
           "
-          rel=""
+          rel="noopener nofollow"
         >
           <TagItem :tag="company.company.name" />
         </a>
@@ -45,9 +45,9 @@
           v-for="company in supporting"
           :key="company.id"
           :href="
-            company.company.websites ? company.company.websites[0].url : ''
+            company.company.websites ? company.company.websites[0].url : '#'
           "
-          rel=""
+          rel="noopener nofollow"
         >
           <TagItem :tag="company.company.name" />
         </a>
