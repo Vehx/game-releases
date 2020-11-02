@@ -14,12 +14,11 @@
   </nav>
   <div class="buttons">
     <a href="#app">
-      <button ref="topButton" class="button-top" :class="{ hidden: isAtTop }">
+      <button class="button-top" :class="{ hidden: isAtTop }">
         Top
       </button>
     </a>
     <button
-      ref="menuButton"
       class="button-menu"
       :class="{ hidden: !isMobile }"
       @click="toggleMenu"
@@ -79,13 +78,7 @@ export default {
 </script>
 
 <style scoped>
-/* temp styling before making hamburger menu */
-.menu {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  padding: 30px 0;
-}
+/* link styling */
 a {
   font-weight: bold;
   color: var(--color-normal);
@@ -93,7 +86,14 @@ a {
 a.active-link {
   color: var(--color-highlight);
 }
-/* Hamburger menu attempt :) */
+/* desktop menu styling */
+.menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 30px 0;
+}
+/* hamburger menu styling */
 .hamburger {
   display: flex;
   flex-direction: column;
@@ -107,19 +107,24 @@ a.active-link {
   right: 0;
   background-color: var(--color-background-faded);
   overflow-x: hidden;
-  /* padding-top: 4rem; */
   transition: 0.5s;
 }
-.button-menu {
-  bottom: 30px;
-  right: 30px;
-  z-index: 1000;
+button {
+  height: 64px;
+  width: 64px;
+  border: none;
+  border-radius: 100%;
+  background-color: var(--color-normal);
   position: fixed;
 }
+.button-menu {
+  bottom: 20px;
+  right: 10px;
+  z-index: 1000;
+}
 .button-top {
-  bottom: 60px;
-  right: 30px;
-  position: fixed;
+  bottom: 104px;
+  right: 10px;
 }
 .open {
   width: 100%;
