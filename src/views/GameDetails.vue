@@ -264,6 +264,10 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  /* margin-top: 4rem; */
+  padding: 0 1rem;
+}
 h1,
 h3 {
   color: var(--color-highlight);

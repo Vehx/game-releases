@@ -52,7 +52,7 @@
           <TagItem :tag="company.company.name" />
         </a>
       </span>
-      <span v-if="!hasSupporting">TBA</span>
+      <span v-if="!hasSupporting">N/A</span>
     </div>
   </div>
 </template>

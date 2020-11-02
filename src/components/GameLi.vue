@@ -25,14 +25,13 @@
             :tag="platform.name"
           />
         </div>
-        <div>
+        <div class="genres">
           Genres:
           <span v-if="game.genres">
             <TagItem
               v-for="genre in game.genres"
               :key="genre.id"
               :tag="genre.name"
-              class="genre"
             />
           </span>
           <span v-else>N/A</span>
@@ -123,20 +122,15 @@ h2 {
   align-items: flex-start;
   text-align: left;
 }
+.release {
+  margin-bottom: 0.2rem;
+}
 .date {
   font-weight: bold;
 }
-.platforms {
-  margin: 0.4rem 0;
-}
-.genre {
-  display: inline-block;
-  border: 1px solid var(--color-highlight);
-  border-radius: 5px;
-  background-color: var(--color-highlight);
-  margin-right: 0.4rem;
-  padding: 0 2px;
-  color: var(--color-background-main);
+.platforms,
+.genres {
+  margin: 0.2rem 0 0 0;
 }
 a {
   font-weight: bold;

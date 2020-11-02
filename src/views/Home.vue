@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="@/assets/logos/logo-home.png" />
-    <!-- <p>This site shows countdowns to game releases for the next 7 days</p> -->
     <div class="welcome">
       <p>Welcome to Game Releases,</p>
       <p>
         a site to get a quick overview of what <br />
-        video games are releasing soon.
+        video games are releasing soon, <br />
+        with countdowns.
       </p>
     </div>
     <GameList title="All game releases: " />
