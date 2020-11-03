@@ -20,13 +20,32 @@ export default {
       return `${this.days}d ${this.hours}h ${this.minutes}m ${this.seconds}s`;
     },
     seconds() {
-      return Math.floor(this.currentCountdownTime % 60);
+      let seconds = Math.floor(this.currentCountdownTime % 60).toString();
+      if (seconds < 10) {
+        seconds = "0" + seconds;
+      }
+      return seconds;
+      // return Math.floor(this.currentCountdownTime % 60);
     },
     minutes() {
-      return Math.floor((this.currentCountdownTime / 60) % 60);
+      let minutes = Math.floor(
+        (this.currentCountdownTime / 60) % 60
+      ).toString();
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
+      return minutes;
+      // return Math.floor((this.currentCountdownTime / 60) % 60);
     },
     hours() {
-      return Math.floor((this.currentCountdownTime / 60 / 60) % 24);
+      let hours = Math.floor(
+        (this.currentCountdownTime / 60 / 60) % 24
+      ).toString();
+      if (hours < 10) {
+        hours = "0" + hours;
+      }
+      return hours;
+      // return Math.floor((this.currentCountdownTime / 60 / 60) % 24);
     },
     days() {
       return Math.floor(this.currentCountdownTime / 60 / 60 / 24);
@@ -66,8 +85,11 @@ export default {
 
 <style scoped>
 .countdown {
+  min-width: 200px;
   font-weight: bold;
   font-size: 30px;
   margin: 5px 0;
+  /* list-style-type: decimal-leading-zero; */
+  font-variant-numeric: slashed-zero;
 }
 </style>
