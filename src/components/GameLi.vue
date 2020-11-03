@@ -1,7 +1,13 @@
 <template>
   <li>
     <h2>{{ game.name }}</h2>
-    <Countdown :key="game.id" :countdown="countdown" class="countdown" />
+    <div class="countdown">
+      <span v-if="!isReleased">
+        <Countdown :key="game.id" :countdown="countdown" />
+      </span>
+      <span v-else>Released</span>
+    </div>
+
     <div class="wrapper">
       <div class="cover">
         <img
@@ -70,15 +76,23 @@ export default {
       return Math.floor(new Date().getTime() / 1000);
     },
     countdown() {
-      return this.game.first_release_date - this.now;
+      return isNaN(this.game.first_release_date)
+        ? 0
+        : this.game.first_release_date - this.now;
     },
     isReleased() {
       return this.countdown <= 0;
     },
     releaseDateString() {
-      return new Intl.DateTimeFormat().format(
-        this.game.first_release_date * 1000
-      );
+      let date;
+      if (this.game.first_release_date) {
+        date = new Intl.DateTimeFormat().format(
+          this.game.first_release_date * 1000
+        );
+      } else {
+        date = "TBA";
+      }
+      return date;
     },
     coverImage() {
       return `${process.env.VUE_APP_IMAGE_URL}t_cover_small/${this.game.cover.image_id}.jpg`;
@@ -116,6 +130,7 @@ h2 {
   align-self: flex-start;
 }
 .info {
+  min-width: 235px;
   padding: 0 0.4rem 0.4rem;
   display: flex;
   flex-direction: column;
