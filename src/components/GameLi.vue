@@ -1,13 +1,7 @@
 <template>
   <li>
     <h2>{{ game.name }}</h2>
-    <div class="countdown">
-      <span v-if="!isReleased">
-        <Countdown :key="game.id" :countdown="countdown" />
-      </span>
-      <span v-else>Released</span>
-    </div>
-
+    <Countdown class="countdown" :key="game.id" :countdown="countdown" />
     <div class="wrapper">
       <div class="cover">
         <img
@@ -79,9 +73,6 @@ export default {
       return isNaN(this.game.first_release_date)
         ? 0
         : this.game.first_release_date - this.now;
-    },
-    isReleased() {
-      return this.countdown <= 0;
     },
     releaseDateString() {
       let date;

@@ -17,7 +17,9 @@ export default {
   },
   computed: {
     formatted() {
-      return `${this.days}d ${this.hours}h ${this.minutes}m ${this.seconds}s`;
+      return this.isReleased
+        ? "Released"
+        : `${this.days}d ${this.hours}h ${this.minutes}m ${this.seconds}s`;
     },
     seconds() {
       let seconds = Math.floor(this.currentCountdownTime % 60).toString();
@@ -54,7 +56,8 @@ export default {
   data() {
     return {
       timeInterval: null,
-      currentCountdownTime: 0
+      currentCountdownTime: 0,
+      isReleased: false
     };
   },
   methods: {
@@ -64,6 +67,7 @@ export default {
         if (this.currentCountdownTime > 0) {
           this.currentCountdownTime -= 1;
         } else {
+          this.isReleased = true;
           this.clearTimeInterval();
         }
       }, 1000);
@@ -89,7 +93,10 @@ export default {
   font-weight: bold;
   font-size: 30px;
   margin: 5px 0;
-  /* list-style-type: decimal-leading-zero; */
-  font-variant-numeric: slashed-zero;
+  text-align: left;
+}
+time {
+  min-width: 200px;
+  text-align: left;
 }
 </style>
