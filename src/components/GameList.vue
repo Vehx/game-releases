@@ -2,12 +2,16 @@
   <div class="gamelist">
     <div class="title">
       <h1>{{ title }}</h1>
-      <h4>(Next 7 days)</h4>
+      <h4 v-if="!search">(Next 7 days)</h4>
     </div>
     <p v-if="loading">Loading...</p>
     <p v-if="error">{{ error }}</p>
     <ul v-if="games">
-      <GameLi v-for="game in games" :key="game.id" :game="game" />
+      <GameLi
+        v-for="game in games"
+        :key="search ? game.game.id : game.game"
+        :game="search ? game.game : game"
+      />
     </ul>
   </div>
 </template>
@@ -24,10 +28,38 @@ export default {
   name: "GameList",
   props: {
     title: String,
-    platform: Number
+    platform: Number,
+    search: Boolean,
+    searchTerm: String
   },
   components: {
     GameLi
+  },
+  computed: {
+    fetchUrl() {
+      let fullUrl;
+      if (this.search) {
+        fullUrl = this.url + "/search";
+      } else {
+        fullUrl = this.url + "/games";
+      }
+      return fullUrl;
+    },
+    fetchBody() {
+      let body;
+      const now = Math.floor(new Date().getTime() / 1000);
+      if (this.search) {
+        body = `fields game.*, game.cover.image_id, game.genres.name, game.platforms.*, game.keywords.*;
+            where game.name ~ *"${this.searchTerm}"*;
+            limit 25;`;
+      } else {
+        body = `fields *, cover.image_id, genres.name, platforms.*, keywords.*; sort first_release_date asc;
+            where ${this.platform ? `platforms = (${this.platform}) &` : ""}
+            first_release_date > ${now} & first_release_date < ${now + 604800};
+            limit 50;`;
+      }
+      return body;
+    }
   },
   data() {
     return {
@@ -38,14 +70,14 @@ export default {
     };
   },
   created() {
-    this.fetchGame();
+    this.fetchGame(this.fetchUrl, this.fetchBody);
   },
   methods: {
-    async fetchGame() {
+    async fetchGame(url, bodyContent) {
       this.loading = true;
       // changing url to only be the base url might be a good idea
-      const url = process.env.VUE_APP_API_URL;
-      const now = Math.floor(new Date().getTime() / 1000);
+      console.log(url);
+      console.log(bodyContent);
       try {
         const res = await fetch(url, {
           method: "POST",
@@ -57,10 +89,7 @@ export default {
           // },
           // sending this in with a prop would make this a much more general component
           // 604800 is the unix time stamp of 7 days, so this grabs all games releaseing in the next 7 days
-          body: `fields *, cover.image_id, genres.name, platforms.*, keywords.*; sort first_release_date asc; where ${
-            this.platform ? `platforms = (${this.platform}) &` : ""
-          } first_release_date > ${now} & first_release_date < ${now +
-            604800}; limit 50;`
+          body: bodyContent
         });
         this.games = await res.json();
         // remove this when done
