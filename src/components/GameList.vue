@@ -3,6 +3,7 @@
     <div class="title">
       <h1>{{ title }}</h1>
       <h4 v-if="!search">(Next 7 days)</h4>
+      <p>{{ searchTerm }}</p>
     </div>
     <p v-if="loading">Loading...</p>
     <p v-if="error">{{ error }}</p>
@@ -71,6 +72,11 @@ export default {
   },
   created() {
     this.fetchGame(this.fetchUrl, this.fetchBody);
+  },
+  watch: {
+    searchTerm() {
+      this.game = this.fetchGame(this.fetchUrl, this.fetchBody);
+    }
   },
   methods: {
     async fetchGame(url, bodyContent) {
