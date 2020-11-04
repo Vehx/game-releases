@@ -5,6 +5,7 @@
     <label for="search">Search</label>
     <input type="text" v-model.lazy="searchTerm" name="search" id="search" />
     <p>Search term: {{ searchTerm }}</p>
+    <p>Page url: {{ $route.path }}</p>
     <GameList
       v-if="searchTerm"
       title="Search results: "
@@ -26,6 +27,17 @@ export default {
     return {
       searchTerm: ""
     };
+  },
+  methods: {
+    prefilledSearchTerm() {
+      if (this.$route.query) {
+        this.searchTerm = this.$route.query;
+      }
+      this.searchTerm = "";
+    }
+  },
+  created() {
+    this.prefilledSearchTerm();
   }
 };
 
