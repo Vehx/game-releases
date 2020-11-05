@@ -47,6 +47,8 @@
         >
           Learn more
         </router-link>
+        <button @click="addToWatchList">Add</button>
+        <button @click="removeFromWatchList">Remove</button>
       </div>
     </div>
   </li>
@@ -87,6 +89,31 @@ export default {
     },
     coverImage() {
       return `${process.env.VUE_APP_IMAGE_URL}t_cover_small/${this.game.cover.image_id}.jpg`;
+    }
+  },
+  methods: {
+    addToWatchList() {
+      // this.game.id when in GameLi
+      if (localStorage.getItem("watchlist")) {
+        let currentStorage = localStorage.getItem("watchlist");
+        // currentStorage += `,${this.game.id}`;
+        localStorage.setItem(
+          "watchlist",
+          (currentStorage += `,${this.game.id}`)
+        );
+      } else {
+        localStorage.setItem("watchlist", this.game.id);
+      }
+    },
+    removeFromWatchList() {
+      let currentStorage = localStorage.getItem("watchlist");
+      let storageArray = currentStorage.split(",");
+      storageArray.splice(storageArray.indexOf(this.game.id), 1);
+      if (storageArray.length < 1) localStorage.removeItem("watchlist");
+
+      currentStorage = storageArray.toString();
+      console.log(currentStorage);
+      localStorage.setItem("watchlist", currentStorage);
     }
   }
 };
