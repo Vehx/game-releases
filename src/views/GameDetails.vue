@@ -195,15 +195,17 @@ export default {
       return Math.floor(new Date().getTime() / 1000);
     },
     countdown() {
-      return this.game.first_release_date - this.now;
+      return this.game.first_release_date
+        ? this.game.first_release_date - this.now
+        : 0;
     },
     isReleased() {
       return this.countdown <= 0;
     },
     releaseDateString() {
-      return new Intl.DateTimeFormat().format(
-        this.game.first_release_date * 1000
-      );
+      return this.game.first_release_date
+        ? new Intl.DateTimeFormat().format(this.game.first_release_date * 1000)
+        : "TBA";
     },
     coverImage() {
       return `${this.imageUrl}t_cover_small/${this.game.cover.image_id}.jpg`;
