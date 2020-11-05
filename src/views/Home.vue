@@ -9,7 +9,7 @@
         with countdowns.
       </p>
     </div>
-    <GameList title="All game releases: " />
+    <GameList title="All game releases: " :body="fetchBody" />
   </div>
 </template>
 
@@ -20,6 +20,18 @@ export default {
   name: "Home",
   components: {
     GameList
+  },
+  computed: {
+    now() {
+      return Math.floor(new Date().getTime() / 1000);
+    },
+    fetchBody() {
+      // 604800 is the unix time stamp of 7 days, so this grabs all games releaseing in the next 7 days
+      return `fields *, cover.image_id, genres.name, platforms.*, keywords.*; sort first_release_date asc;
+             where first_release_date > ${this.now} & first_release_date <
+             ${this.now + 604800};
+             limit 50;`;
+    }
   }
 };
 </script>

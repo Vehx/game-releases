@@ -2,8 +2,7 @@
   <div class="gamelist">
     <div class="title">
       <h1>{{ title }}</h1>
-      <h4 v-if="!search">(Next 7 days)</h4>
-      <p>{{ searchTerm }}</p>
+      <h4 v-if="!minimal">(Next 7 days)</h4>
     </div>
     <p v-if="loading">Loading...</p>
     <p v-if="error">{{ error }}</p>
@@ -29,37 +28,19 @@ export default {
   name: "GameList",
   props: {
     title: String,
-    platform: Number,
-    search: Boolean,
-    searchTerm: String
+    body: String,
+    minimal: Boolean,
+    search: Boolean
   },
   components: {
     GameLi
   },
   computed: {
     fetchUrl() {
-      let fullUrl;
       if (this.search) {
-        fullUrl = this.url + "/search";
-      } else {
-        fullUrl = this.url + "/games";
+        return this.url + "/search";
       }
-      return fullUrl;
-    },
-    fetchBody() {
-      let body;
-      const now = Math.floor(new Date().getTime() / 1000);
-      if (this.search) {
-        body = `fields game.*, game.cover.image_id, game.genres.name, game.platforms.*, game.keywords.*;
-            where game.name ~ *"${this.searchTerm}"*;
-            limit 25;`;
-      } else {
-        body = `fields *, cover.image_id, genres.name, platforms.*, keywords.*; sort first_release_date asc;
-            where ${this.platform ? `platforms = (${this.platform}) &` : ""}
-            first_release_date > ${now} & first_release_date < ${now + 604800};
-            limit 50;`;
-      }
-      return body;
+      return this.url + "/games";
     }
   },
   data() {
@@ -71,34 +52,24 @@ export default {
     };
   },
   created() {
-    this.fetchGame(this.fetchUrl, this.fetchBody);
+    this.fetchGames(this.fetchUrl, this.body);
   },
   watch: {
-    searchTerm() {
-      this.game = this.fetchGame(this.fetchUrl, this.fetchBody);
+    body() {
+      this.game = this.fetchGames(this.fetchUrl, this.body);
     }
   },
   methods: {
-    async fetchGame(url, bodyContent) {
+    async fetchGames(url, bodyContent) {
       this.loading = true;
-      // changing url to only be the base url might be a good idea
-      console.log(url);
-      console.log(bodyContent);
       try {
         const res = await fetch(url, {
           method: "POST",
-          // add headers here if needed for authentication to aws proxy
-          // headers: {
-          //     "Accept": "application/json",
-          //     "Client-ID": clientID,
-          //     "Authorization": "Bearer " + token,
-          // },
-          // sending this in with a prop would make this a much more general component
           // 604800 is the unix time stamp of 7 days, so this grabs all games releaseing in the next 7 days
           body: bodyContent
         });
         this.games = await res.json();
-        // remove this when done
+        // TODO remove this when done
         console.log(this.games);
         this.loading = false;
       } catch (error) {
