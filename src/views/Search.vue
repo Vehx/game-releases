@@ -9,8 +9,9 @@
     <GameList
       v-if="searchTerm"
       title="Search results: "
+      minimal
       search
-      :searchTerm="searchTerm"
+      :body="fetchBody"
     />
   </div>
 </template>
@@ -28,6 +29,13 @@ export default {
       searchTerm: ""
     };
   },
+  computed: {
+    fetchBody() {
+      return `fields game.*, game.cover.image_id, game.genres.name, game.platforms.*, game.keywords.*;
+       where game.name ~ *"${this.searchTerm}"*;
+       limit 25;`;
+    }
+  },
   methods: {
     prefilledSearchTerm() {
       if (this.$route.query) {
@@ -40,9 +48,6 @@ export default {
     this.prefilledSearchTerm();
   }
 };
-
-// search fields:
-// fields game.*; where game.name ~ *"search"*; limit 25;
 </script>
 
 <style scoped>
