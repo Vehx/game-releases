@@ -6,7 +6,9 @@
     <p v-if="error"></p>
     <div v-if="game">
       <h1>{{ game.name }}</h1>
-      <Countdown :countdown="countdown" />
+      <div class="countdown-wrapper">
+        <Countdown :countdown="countdown" />
+      </div>
       <div v-if="game.cover" class="cover">
         <img :src="coverImage" :alt="'Game cover image of ' + game.name" />
       </div>
@@ -193,15 +195,17 @@ export default {
       return Math.floor(new Date().getTime() / 1000);
     },
     countdown() {
-      return this.game.first_release_date - this.now;
+      return this.game.first_release_date
+        ? this.game.first_release_date - this.now
+        : 0;
     },
     isReleased() {
       return this.countdown <= 0;
     },
     releaseDateString() {
-      return new Intl.DateTimeFormat().format(
-        this.game.first_release_date * 1000
-      );
+      return this.game.first_release_date
+        ? new Intl.DateTimeFormat().format(this.game.first_release_date * 1000)
+        : "TBA";
     },
     coverImage() {
       return `${this.imageUrl}t_cover_small/${this.game.cover.image_id}.jpg`;
@@ -213,7 +217,7 @@ export default {
   methods: {
     async fetchGame() {
       this.loading = true;
-      const url = process.env.VUE_APP_API_URL;
+      const url = process.env.VUE_APP_API_URL + "/games";
 
       try {
         const res = await fetch(url, {
@@ -264,6 +268,10 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  /* margin-top: 4rem; */
+  padding: 0 1rem;
+}
 h1,
 h3 {
   color: var(--color-highlight);
@@ -275,6 +283,15 @@ h3 {
   min-width: 100%;
   min-height: 100%;
   text-align: center;
+}
+.countdown-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.countdown {
+  min-width: 240px;
 }
 .cover {
   height: 128px;
@@ -296,6 +313,10 @@ h3 {
 .storyline {
   padding: 0 1rem;
   margin: 0.8rem 0;
+}
+.summary h3,
+.storyline h3 {
+  margin-bottom: 0.5rem;
 }
 .info {
   display: flex;

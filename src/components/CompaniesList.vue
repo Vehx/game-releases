@@ -9,14 +9,14 @@
           v-for="company in developers"
           :key="company.id"
           :href="
-            company.company.websites ? company.company.websites[0].url : ''
+            company.company.websites ? company.company.websites[0].url : '#'
           "
-          rel=""
+          rel="noopener nofollow"
         >
           <TagItem :tag="company.company.name" />
         </a>
       </span>
-      <span v-else>TBA</span>
+      <span v-if="!hasDevelopers">TBA</span>
     </div>
     <div>
       <h3>
@@ -27,14 +27,14 @@
           v-for="company in publishers"
           :key="company.id"
           :href="
-            company.company.websites ? company.company.websites[0].url : ''
+            company.company.websites ? company.company.websites[0].url : '#'
           "
-          rel=""
+          rel="noopener nofollow"
         >
           <TagItem :tag="company.company.name" />
         </a>
       </span>
-      <span v-else>TBA</span>
+      <span v-if="!hasPublishers">TBA</span>
     </div>
     <div>
       <h3>
@@ -45,14 +45,14 @@
           v-for="company in supporting"
           :key="company.id"
           :href="
-            company.company.websites ? company.company.websites[0].url : ''
+            company.company.websites ? company.company.websites[0].url : '#'
           "
-          rel=""
+          rel="noopener nofollow"
         >
           <TagItem :tag="company.company.name" />
         </a>
       </span>
-      <span v-else>TBA</span>
+      <span v-if="!hasSupporting">N/A</span>
     </div>
   </div>
 </template>
@@ -67,15 +67,22 @@ export default {
   components: {
     TagItem
   },
+  data() {
+    return {
+      hasDevelopers: false,
+      hasPublishers: false,
+      hasSupporting: false
+    };
+  },
   computed: {
     developers() {
-      return this.getCompanies(this.list, "developer");
+      return this.getDevelopers();
     },
     publishers() {
-      return this.getCompanies(this.list, "publisher");
+      return this.getPublishers();
     },
     supporting() {
-      return this.getCompanies(this.list, "supporting");
+      return this.getSupporting();
     }
   },
   methods: {
@@ -88,6 +95,27 @@ export default {
         }
       }
       return result;
+    },
+    getDevelopers() {
+      const result = this.getCompanies(this.list, "developer");
+      if (result[0]) {
+        this.hasDevelopers = true;
+      }
+      return result;
+    },
+    getPublishers() {
+      const result = this.getCompanies(this.list, "publisher");
+      if (result[0]) {
+        this.hasPublishers = true;
+      }
+      return result;
+    },
+    getSupporting() {
+      const result = this.getCompanies(this.list, "supporting");
+      if (result[0]) {
+        this.hasSupporting = true;
+      }
+      return result;
     }
   }
 };
@@ -96,5 +124,8 @@ export default {
 <style scoped>
 h3 {
   display: inline;
+}
+.companies-list div {
+  margin: 0.2rem 0;
 }
 </style>

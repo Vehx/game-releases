@@ -38,6 +38,18 @@ const routes = [
       )
   },
   {
+    path: "/search",
+    name: "Search",
+    component: () =>
+      import(/* webpackChunkName: "Search" */ "../views/Search.vue")
+  },
+  {
+    path: "/watch-list",
+    name: "WatchList",
+    component: () =>
+      import(/* webpackChunkName: "WatchList" */ "../views/WatchList.vue")
+  },
+  {
     path: "/about",
     name: "About",
     // route level code-splitting
@@ -59,6 +71,7 @@ const routes = [
       import(/* webpackChunkName: "NotFound" */ "../views/NotFound.vue")
   },
   {
+    // this matches path with a regex to send them to the 404 not found page
     path: "/:pathMatch(.*)*",
     redirect: { name: "NotFound" }
   }
@@ -67,7 +80,12 @@ const routes = [
 const router = createRouter({
   linkExactActiveClass: "active-link",
   history: createWebHistory(),
-  routes
+  routes,
+  // this makes it so when clicking a router link leading to the page user is currently on
+  // it scrolls to the top of the page
+  scrollBehavior() {
+    document.getElementById("app").scrollIntoView();
+  }
 });
 
 export default router;

@@ -2,7 +2,7 @@
   <TheNavigation />
   <router-view v-slot="{ Component }">
     <transition name="fade" mode="out-in">
-      <component :is="Component" />
+      <component class="content" :is="Component" />
     </transition>
   </router-view>
 </template>
@@ -17,22 +17,26 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;700&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+:root {
+  --color-highlight: #49a170;
+  --color-normal: #dfdfdf;
+  --color-background-main: #161616;
+  --color-background-faded: #282828;
+  --color-error: darkred;
+  --color-disabled: #838383;
+}
+html {
   background-color: var(--color-background-main);
 }
-
-:root {
-  --color-highlight: #42b983;
-  --color-normal: #e4edff;
-  --color-background-main: black;
-  --color-background-faded: #2c3e50;
-}
-
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Epilogue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -40,7 +44,6 @@ export default {
   max-width: 100vw;
   height: 100%;
 }
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s;
@@ -48,5 +51,8 @@ export default {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+.content {
+  padding-top: 5rem;
 }
 </style>
