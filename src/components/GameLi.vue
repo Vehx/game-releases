@@ -77,26 +77,28 @@ export default {
         : this.game.first_release_date - this.now;
     },
     releaseDateString() {
-      let date;
       if (this.game.first_release_date) {
-        date = new Intl.DateTimeFormat().format(
+        return new Intl.DateTimeFormat().format(
           this.game.first_release_date * 1000
         );
-      } else {
-        date = "TBA";
       }
-      return date;
+      return "TBA";
     },
     coverImage() {
+      // this is what cover.url will return in fetch
+      // //images.igdb.com/igdb/image/upload/t_thumb/co2dc0.jpg
+      // now using just the image id, co2dc0, from above and base url is in env
+      // t_thumb part is not in base url and can be set to what is wanted, like t_cover_small
+      // there is a rate limit of around 600 images per minute so caching would be great
       return `${process.env.VUE_APP_IMAGE_URL}t_cover_small/${this.game.cover.image_id}.jpg`;
     }
   },
   methods: {
     addToWatchList() {
-      // this.game.id when in GameLi
+      // if watchlist exists in local storage we add to it
+      // if it does not we create it
       if (localStorage.getItem("watchlist")) {
         let currentStorage = localStorage.getItem("watchlist");
-        // currentStorage += `,${this.game.id}`;
         localStorage.setItem(
           "watchlist",
           (currentStorage += `,${this.game.id}`)
@@ -106,14 +108,20 @@ export default {
       }
     },
     removeFromWatchList() {
+      // we get watchlist from local storage and split it into an array
       let currentStorage = localStorage.getItem("watchlist");
       let storageArray = currentStorage.split(",");
+      // grab the id of game id we want to remove and remove it
       storageArray.splice(storageArray.indexOf(this.game.id), 1);
-      if (storageArray.length < 1) localStorage.removeItem("watchlist");
-
-      currentStorage = storageArray.toString();
-      console.log(currentStorage);
-      localStorage.setItem("watchlist", currentStorage);
+      // if it was the last game id in watchlist we also remove watchlist from local storage
+      if (storageArray.length < 1) {
+        localStorage.removeItem("watchlist");
+      } else {
+        // otherwise we put the remaining game ids back into local storage
+        currentStorage = storageArray.toString();
+        console.log(currentStorage);
+        localStorage.setItem("watchlist", currentStorage);
+      }
     }
   }
 };
