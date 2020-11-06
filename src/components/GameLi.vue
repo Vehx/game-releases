@@ -36,19 +36,25 @@
           </span>
           <span v-else>N/A</span>
         </div>
-        <router-link
-          :to="{
-            name: 'GameDetails',
-            params: {
-              id: game.id,
-              slug: game.slug
-            }
-          }"
-        >
-          Learn more
-        </router-link>
-        <button @click="addToWatchList">Add</button>
-        <button @click="removeFromWatchList">Remove</button>
+        <div class="buttons">
+          <button v-if="isSaved" @click="removeFromWatchList" class="remove">
+            Remove from Watch list
+          </button>
+          <button v-else @click="addToWatchList">
+            Add to Watch list
+          </button>
+          <router-link
+            :to="{
+              name: 'GameDetails',
+              params: {
+                id: game.id,
+                slug: game.slug
+              }
+            }"
+          >
+            Learn more
+          </router-link>
+        </div>
       </div>
     </div>
   </li>
@@ -93,6 +99,14 @@ export default {
       return `${process.env.VUE_APP_IMAGE_URL}t_cover_small/${this.game.cover.image_id}.jpg`;
     }
   },
+  data() {
+    return {
+      isSaved: false
+    };
+  },
+  created() {
+    this.checkIfSaved();
+  },
   methods: {
     addToWatchList() {
       // if watchlist exists in local storage we add to it
@@ -106,6 +120,7 @@ export default {
       } else {
         localStorage.setItem("watchlist", this.game.id);
       }
+      this.isSaved = true;
     },
     removeFromWatchList() {
       // we get watchlist from local storage and split it into an array
@@ -122,6 +137,15 @@ export default {
         console.log(currentStorage);
         localStorage.setItem("watchlist", currentStorage);
       }
+      this.isSaved = false;
+    },
+    checkIfSaved() {
+      // checks if game exists in watchlist
+      if (localStorage.getItem("watchlist")) {
+        this.isSaved = localStorage.getItem("watchlist").includes(this.game.id);
+      } else {
+        this.isSaved = false;
+      }
     }
   }
 };
@@ -135,8 +159,8 @@ li {
   align-items: center;
   max-width: 100%;
   margin: 0.5rem 0.6rem;
-  padding: 0.5rem;
-  border: 1px solid var(--color-highlight);
+  padding: 1rem 0.5rem;
+  border: 2px solid var(--color-highlight);
   border-radius: 10px;
 }
 h2 {
@@ -146,7 +170,6 @@ h2 {
   font-size: 24px;
 }
 .wrapper {
-  padding: 0.4rem;
   display: flex;
   max-width: 500px;
 }
@@ -157,7 +180,7 @@ h2 {
 }
 .info {
   min-width: 235px;
-  padding: 0 0.4rem 0.4rem;
+  padding-left: 0.4rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -173,9 +196,25 @@ h2 {
 .genres {
   margin: 0.2rem 0 0 0;
 }
+.buttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.7rem;
+}
+button {
+  margin-bottom: 0.7rem;
+  border: 2px solid var(--color-highlight);
+  border-radius: 5px;
+  padding: 0.1rem 0.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: var(--color-highlight);
+}
+.remove {
+  background-color: var(--color-disabled);
+}
 a {
   font-weight: bold;
   color: var(--color-highlight);
-  margin-top: 0.4rem;
 }
 </style>
