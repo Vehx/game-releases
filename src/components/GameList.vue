@@ -17,11 +17,6 @@
 </template>
 
 <script>
-// this is what cover.url will return in fetch
-// //images.igdb.com/igdb/image/upload/t_thumb/co2dc0.jpg
-// now using just the image id, co2dc0, from above and base url is in env
-// t_thumb part is not in base url and can be set to what is wanted, like t_cover_small
-// there is a rate limit of around 600 images per minute so caching would be great
 import GameLi from "@/components/GameLi";
 
 export default {
@@ -37,6 +32,7 @@ export default {
   },
   computed: {
     fetchUrl() {
+      // this sets the correct endpoint for the api
       if (this.search) {
         return this.url + "/search";
       }
@@ -52,9 +48,12 @@ export default {
     };
   },
   created() {
+    // fetch is done upon component creation
     this.fetchGames(this.fetchUrl, this.body);
   },
   watch: {
+    // we watch for changes to the body prop
+    // and fetch if from the api if it changes
     body() {
       this.game = this.fetchGames(this.fetchUrl, this.body);
     }
@@ -65,23 +64,21 @@ export default {
       try {
         const res = await fetch(url, {
           method: "POST",
-          // 604800 is the unix time stamp of 7 days, so this grabs all games releaseing in the next 7 days
           body: bodyContent
         });
         this.games = await res.json();
+        this.loading = false;
         // TODO remove this when done
         console.log(this.games);
-        this.loading = false;
       } catch (error) {
-        this.loading = false;
         this.error = error;
+        this.loading = false;
       }
     }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .gamelist {
   width: 100%;
