@@ -1,5 +1,6 @@
 <template>
-  <h2 class="countdown">
+  <h2 v-if="isReleased" class="released">{{ formatted }}</h2>
+  <h2 v-else class="countdown">
     <time :datetime="formatted">
       {{ formatted }}
     </time>
@@ -9,7 +10,7 @@
 <script>
 // Countdown takes a unix timestamp in seconds and counts down from that number to zero
 // showing days, hours, minutes and seconds while doing so
-// once it reaches 0 it clears its interval and sits at 0
+// once it reaches 0 it clears its interval and changes to Released
 export default {
   name: "Countdown",
   props: {
@@ -27,7 +28,6 @@ export default {
         seconds = "0" + seconds;
       }
       return seconds;
-      // return Math.floor(this.currentCountdownTime % 60);
     },
     minutes() {
       let minutes = Math.floor(
@@ -37,7 +37,6 @@ export default {
         minutes = "0" + minutes;
       }
       return minutes;
-      // return Math.floor((this.currentCountdownTime / 60) % 60);
     },
     hours() {
       let hours = Math.floor(
@@ -47,7 +46,6 @@ export default {
         hours = "0" + hours;
       }
       return hours;
-      // return Math.floor((this.currentCountdownTime / 60 / 60) % 24);
     },
     days() {
       return Math.floor(this.currentCountdownTime / 60 / 60 / 24);
@@ -94,6 +92,13 @@ export default {
   font-size: 30px;
   margin: 5px 0;
   text-align: left;
+}
+.released {
+  min-width: 200px;
+  font-weight: bold;
+  font-size: 30px;
+  margin: 5px 0;
+  text-align: center;
 }
 time {
   min-width: 200px;

@@ -69,7 +69,7 @@ export default {
         this.games = await res.json();
         this.loading = false;
         // TODO remove this when done
-        console.log(this.games);
+        // console.log(this.games);
       } catch (error) {
         this.error = error;
         this.loading = false;
