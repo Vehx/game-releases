@@ -25,17 +25,17 @@ export default {
   scroll-behavior: smooth;
 }
 :root {
-  --color-highlight: #42b983;
-  --color-normal: #e4edff;
-  --color-background-main: black;
-  --color-background-faded: #2c3e50;
+  --color-highlight: #49a170;
+  --color-normal: #dfdfdf;
+  --color-background-main: #161616;
+  --color-background-faded: #282828;
   --color-error: darkred;
+  --color-disabled: #838383;
 }
 html {
   background-color: var(--color-background-main);
 }
 #app {
-  /* TODO: change to font of choosing */
   font-family: "Epilogue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
