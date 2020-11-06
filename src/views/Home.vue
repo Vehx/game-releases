@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="@/assets/logos/logo-home.png" />
+    <img alt="Home logo" src="@/assets/logos/logo-home.png" />
     <div class="welcome">
       <p>Welcome to Game Releases,</p>
       <p>

@@ -1,9 +1,11 @@
 <template>
   <div class="search">
-    <h1>Search page</h1>
+    <img alt="Search logo" src="@/assets/logos/logo-search.png" />
     <h2>Under construction</h2>
-    <label for="search">Search</label>
-    <input type="text" v-model.lazy="searchTerm" name="search" id="search" />
+    <div>
+      <label for="search">Search</label>
+      <input type="text" v-model.lazy="searchTerm" name="search" id="search" />
+    </div>
     <p>Search term: {{ searchTerm }}</p>
     <p>Page url: {{ $route.path }}</p>
     <GameList

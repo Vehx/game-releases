@@ -1,16 +1,14 @@
 <template>
   <div class="watch-list">
-    <h1>Watch list page</h1>
-    <h2>Under construction</h2>
-    <p>{{ savedGames }}</p>
+    <img alt="Watch list logo" src="@/assets/logos/logo-watch-list.png" />
     <div v-if="savedGames">
       <GameList title="Your Watch list:" minimal :body="fetchBody" />
     </div>
     <div v-else>
       <p>
-        Your watch list is empty
+        Your watch list is empty.
       </p>
-      <p>Add some games to see them here</p>
+      <p>Add some games to see them here.</p>
     </div>
   </div>
 </template>
@@ -50,5 +48,8 @@ export default {
 <style scoped>
 h1 {
   margin-bottom: 2rem;
+}
+p {
+  margin-top: 0.5rem;
 }
 </style>
