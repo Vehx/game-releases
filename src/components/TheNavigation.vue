@@ -41,6 +41,7 @@ export default {
     };
   },
   created() {
+    this.checkWindowWidth();
     // sets scroll listener as passive for increeased performance
     window.addEventListener("scroll", this.toggleToTop, { passive: true });
     window.addEventListener("resize", this.checkWindowWidth, { passive: true });
