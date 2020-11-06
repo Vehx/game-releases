@@ -4,7 +4,7 @@
     <h2>Under construction</h2>
     <p>{{ savedGames }}</p>
     <div v-if="savedGames">
-      <GameList title="Watch list" minimal :body="fetchBody" />
+      <GameList title="Your Watch list:" minimal :body="fetchBody" />
     </div>
     <div v-else>
       <p>
@@ -25,8 +25,16 @@ export default {
   },
   computed: {
     savedGames() {
-      // this retrives the values we want from local storage
-      return localStorage.getItem("watchlist");
+      // this retrives the values we want from local storage if any exists
+      // and checks that they are basic numbers
+      if (localStorage.getItem("watchlist")) {
+        const unCheckedIds = localStorage.getItem("watchlist").split(",");
+        const checkedIds = unCheckedIds.filter(el => {
+          if (!isNaN(el)) return el;
+        });
+        return checkedIds.toString();
+      }
+      return false;
     },
     fetchBody() {
       return this.savedGames
