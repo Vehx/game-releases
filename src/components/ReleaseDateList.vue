@@ -13,7 +13,9 @@
       <span class="platform">
         {{ date.platform.name }}
       </span>
-      <span class="date">{{ foramttedDate(date.date) }}</span>
+      <span class="date">{{
+        date.date ? foramttedDate(date.date) : "TBA"
+      }}</span>
       <span>
         {{ getRegionString(date.region) }}
       </span>
