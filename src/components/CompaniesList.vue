@@ -1,6 +1,6 @@
 <template>
   <div v-if="list" class="companies-list">
-    <div>
+    <div class="developers">
       <h3>
         Developers:
       </h3>
@@ -18,7 +18,7 @@
       </span>
       <span v-if="!hasDevelopers">TBA</span>
     </div>
-    <div>
+    <div class="publishers">
       <h3>
         Publishers:
       </h3>
@@ -36,7 +36,7 @@
       </span>
       <span v-if="!hasPublishers">TBA</span>
     </div>
-    <div>
+    <div class="supporting">
       <h3>
         Supporting Developers:
       </h3>
@@ -125,7 +125,9 @@ export default {
 h3 {
   display: inline;
 }
-.companies-list div {
+.developers,
+.publishers,
+.supporting {
   margin: 0.2rem 0;
 }
 </style>
