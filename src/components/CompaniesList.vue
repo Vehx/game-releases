@@ -12,6 +12,7 @@
             company.company.websites ? company.company.websites[0].url : '#'
           "
           rel="noopener nofollow"
+          :target="company.company.websites ? '_blank' : ''"
         >
           <TagItem :tag="company.company.name" />
         </a>
@@ -30,6 +31,7 @@
             company.company.websites ? company.company.websites[0].url : '#'
           "
           rel="noopener nofollow"
+          :target="company.company.websites ? '_blank' : ''"
         >
           <TagItem :tag="company.company.name" />
         </a>
@@ -48,6 +50,7 @@
             company.company.websites ? company.company.websites[0].url : '#'
           "
           rel="noopener nofollow"
+          :target="company.company.websites ? '_blank' : ''"
         >
           <TagItem :tag="company.company.name" />
         </a>

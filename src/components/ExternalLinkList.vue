@@ -3,7 +3,7 @@
     <h3>External links:</h3>
     <ul v-if="links" class="external-link-list">
       <li v-for="link in links" :key="link.id">
-        <a :href="link.url" rel="">
+        <a :href="link.url" rel="noopener nofollow" target="_blank">
           <img
             :src="getLinkCategoryString(link.category)"
             :alt="getLinkCategoryString(link.category) + ' icon'"
