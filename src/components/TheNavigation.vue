@@ -14,7 +14,10 @@
   </nav>
   <div class="buttons">
     <a href="#app">
-      <button class="button-top" :class="{ hidden: isAtTop }">
+      <button
+        class="button-top"
+        :class="{ hidden: isAtTop, desktop: !isMobile }"
+      >
         Top
       </button>
     </a>
@@ -65,8 +68,6 @@ export default {
     },
     checkWindowWidth() {
       this.isMobile = window.innerWidth <= this.mobileMaxWidth;
-      // console.log(this.isMobile);
-      // console.log(window.innerWidth);
     }
   },
   watch: {
@@ -126,11 +127,15 @@ button {
 .button-top {
   bottom: 104px;
   right: 10px;
+  z-index: 1000;
 }
 .open {
   width: 100%;
 }
 .hidden {
   display: none;
+}
+.desktop {
+  bottom: 20px;
 }
 </style>
