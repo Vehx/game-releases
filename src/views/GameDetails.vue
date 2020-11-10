@@ -122,41 +122,11 @@
           :dates="game.release_dates"
         />
       </div>
-
-      <div v-if="game.screenshots" class="screenshot">
-        <!-- this works just using one for testing -->
-        <!-- <img
-          v-for="screenshot in game.screenshots"
-          :key="screenshot.id"
-          :src="`${imageUrl}t_screenshot_med/${screenshot.image_id}.jpg`"
-          :alt="screenshot.name"
-        /> -->
-        <img
-          :src="
-            `${imageUrl}t_screenshot_med/${game.screenshots[0].image_id}.jpg`
-          "
-          :alt="game.screenshots[0].name"
-          loading="lazy"
-        />
+      <div v-if="game.screenshots" class="screenshots">
+        <ImageSlider :images="game.screenshots" />
       </div>
       <div v-if="game.videos" class="videos">
-        <!-- this works just using one for testing -->
-        <!-- <iframe
-          v-for="video in game.videos"
-          :key="video.id"
-          :width="windowWidth"
-          height="315"
-          :src="`https://www.youtube.com/embed/${video.video_id}`"
-          frameborder="0"
-          allowfullscreen
-        ></iframe> -->
-        <iframe
-          :width="windowWidth"
-          height="315"
-          :src="`https://www.youtube.com/embed/${game.videos[0].video_id}`"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
+        <VideoList :videos="game.videos" />
       </div>
       <ExternalLinkList v-if="game.websites" :links="game.websites" />
     </div>
@@ -168,6 +138,8 @@ import TagItem from "@/components/TagItem";
 import ReleaseDateList from "@/components/ReleaseDateList";
 import ExternalLinkList from "@/components/ExternalLinkList";
 import CompaniesList from "@/components/CompaniesList";
+import ImageSlider from "@/components/ImageSlider";
+import VideoList from "@/components/VideoList";
 
 export default {
   components: {
@@ -175,7 +147,9 @@ export default {
     TagItem,
     ReleaseDateList,
     ExternalLinkList,
-    CompaniesList
+    CompaniesList,
+    ImageSlider,
+    VideoList
   },
   data() {
     return {
@@ -222,12 +196,6 @@ export default {
       try {
         const res = await fetch(url, {
           method: "POST",
-          // add headers here if needed for authentication to aws proxy
-          // headers: {
-          //     "Accept": "application/json",
-          //     "Client-ID": clientID,
-          //     "Authorization": "Bearer " + token,
-          // },
           body: `
           fields name,
           first_release_date,
@@ -269,7 +237,6 @@ export default {
 
 <style scoped>
 h1 {
-  /* margin-top: 4rem; */
   padding: 0 1rem;
 }
 h1,
@@ -278,6 +245,7 @@ h3 {
 }
 .wrapper {
   display: flex;
+  margin-bottom: 10rem;
 }
 .loading {
   min-width: 100%;
@@ -337,10 +305,7 @@ h3 {
   padding: 0 1rem;
 }
 .release-dates,
-.screenshot {
+.screenshots {
   padding: 0;
-}
-img {
-  max-width: 100%;
 }
 </style>
