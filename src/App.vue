@@ -23,6 +23,7 @@ export default {
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+  font-family: "Epilogue", Helvetica, Arial, sans-serif;
 }
 :root {
   --color-highlight: #49a170;
