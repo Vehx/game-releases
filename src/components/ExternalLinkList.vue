@@ -4,11 +4,6 @@
     <ul v-if="links" class="external-link-list">
       <li v-for="link in links" :key="link.id">
         <a :href="link.url" rel="noopener nofollow" target="_blank">
-          <img
-            :src="getLinkCategoryString(link.category)"
-            :alt="getLinkCategoryString(link.category) + ' icon'"
-            loading="lazy"
-          />
           <span>{{ getLinkCategoryString(link.category) }}</span>
         </a>
       </li>
