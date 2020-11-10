@@ -49,7 +49,7 @@
               :tag="platform.name"
             />
           </span>
-          <span v-else>TBA</span>
+          <span v-else><TagItem tag="N/A" faded/></span>
         </div>
         <div class="genres">
           <h3>
@@ -62,7 +62,7 @@
               :tag="genre.name"
             />
           </span>
-          <span v-else>N/A</span>
+          <span v-else><TagItem tag="N/A" faded/></span>
         </div>
         <div class="modes">
           <h3>
@@ -75,7 +75,7 @@
               :tag="mode.name"
             />
           </span>
-          <span v-else>N/A</span>
+          <span v-else><TagItem tag="N/A" faded/></span>
         </div>
         <div class="player-perspectives">
           <h3>
@@ -88,7 +88,7 @@
               :tag="prespective.name"
             />
           </span>
-          <span v-else>N/A</span>
+          <span v-else><TagItem tag="N/A" faded/></span>
         </div>
         <div class="themes">
           <h3>
@@ -101,7 +101,7 @@
               :tag="theme.name"
             />
           </span>
-          <span v-else>N/A</span>
+          <span v-else><TagItem tag="N/A" faded/></span>
         </div>
         <div class="keywords">
           <h3>
@@ -114,7 +114,7 @@
               :tag="keyword.name"
             />
           </span>
-          <span v-else>N/A</span>
+          <span v-else><TagItem tag="N/A" faded/></span>
         </div>
         <CompaniesList :list="game.involved_companies" />
         <ReleaseDateList

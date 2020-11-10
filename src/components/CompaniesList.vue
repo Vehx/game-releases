@@ -17,7 +17,7 @@
           <TagItem :tag="company.company.name" />
         </a>
       </span>
-      <span v-if="!hasDevelopers">TBA</span>
+      <span v-if="!hasDevelopers"><TagItem tag="TBA" faded/></span>
     </div>
     <div class="publishers">
       <h3>
@@ -36,7 +36,7 @@
           <TagItem :tag="company.company.name" />
         </a>
       </span>
-      <span v-if="!hasPublishers">TBA</span>
+      <span v-if="!hasPublishers"><TagItem tag="TBA" faded/></span>
     </div>
     <div class="supporting">
       <h3>
@@ -55,7 +55,7 @@
           <TagItem :tag="company.company.name" />
         </a>
       </span>
-      <span v-if="!hasSupporting">N/A</span>
+      <span v-if="!hasSupporting"><TagItem tag="N/A" faded/></span>
     </div>
   </div>
 </template>
