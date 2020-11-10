@@ -1,13 +1,17 @@
 <template>
   <div class="search">
     <img alt="Search logo" src="@/assets/logos/logo-search.png" />
-    <h2>Under construction</h2>
-    <div>
+    <h2>Search game name</h2>
+    <div class="search-bar">
       <label for="search">Search</label>
-      <input type="text" v-model.lazy="searchTerm" name="search" id="search" />
+      <input
+        type="text"
+        v-model.lazy="searchTerm"
+        name="search"
+        id="search"
+        placeholder="Search..."
+      />
     </div>
-    <p>Search term: {{ searchTerm }}</p>
-    <p>Page url: {{ $route.path }}</p>
     <GameList
       v-if="searchTerm"
       title="Search results: "
@@ -41,19 +45,44 @@ export default {
   methods: {
     prefilledSearchTerm() {
       if (this.$route.query) {
-        this.searchTerm = this.$route.query;
+        this.searchTerm = this.$route.query.s;
       }
-      this.searchTerm = "";
     }
   },
   created() {
     this.prefilledSearchTerm();
+  },
+  watch: {
+    searchTerm() {
+      // change to push for better navigation
+      // push does not load the gamelist properly so sticking to replace for now
+      this.$router.replace({ name: "Search", query: { s: this.searchTerm } });
+    }
   }
 };
 </script>
 
 <style scoped>
-h1 {
+h2 {
   margin-bottom: 2rem;
+}
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+input {
+  border: solid 3px var(--color-normal);
+  font-size: 1rem;
+  height: 2.5rem;
+  outline: solid var(--color-highlight);
+  padding: 0.5em;
+  transition: all 0.5s ease-in;
+  width: 15rem;
+  margin-top: 0.5rem;
+}
+input:focus {
+  border: solid 3px var(--color-background-faded);
 }
 </style>

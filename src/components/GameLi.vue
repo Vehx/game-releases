@@ -17,13 +17,16 @@
             {{ releaseDateString }}
           </time>
         </p>
-        <div v-if="game.platforms" class="platforms">
+        <div class="platforms">
           Platforms:
-          <TagItem
-            v-for="platform in game.platforms"
-            :key="platform.id"
-            :tag="platform.name"
-          />
+          <span v-if="game.platforms">
+            <TagItem
+              v-for="platform in game.platforms"
+              :key="platform.id"
+              :tag="platform.name"
+            />
+          </span>
+          <span v-else><TagItem tag="N/A" faded/></span>
         </div>
         <div class="genres">
           Genres:
@@ -34,7 +37,7 @@
               :tag="genre.name"
             />
           </span>
-          <span v-else>N/A</span>
+          <span v-else><TagItem tag="N/A" faded/></span>
         </div>
         <div class="buttons">
           <button v-if="isSaved" @click="removeFromWatchList" class="remove">

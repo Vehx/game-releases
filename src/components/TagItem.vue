@@ -1,5 +1,5 @@
 <template>
-  <div class="tag" :title="tag">
+  <div class="tag" :class="{ faded: faded }" :title="tag">
     {{ tag }}
   </div>
 </template>
@@ -8,7 +8,8 @@
 export default {
   name: "TagItem",
   props: {
-    tag: String
+    tag: String,
+    faded: Boolean
   }
 };
 </script>
@@ -21,5 +22,8 @@ export default {
   margin: 2px 4px 2px 0;
   padding: 2px;
   color: var(--color-background-main);
+}
+.faded {
+  background-color: var(--color-disabled);
 }
 </style>

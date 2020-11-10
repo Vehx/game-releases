@@ -1,6 +1,6 @@
 <template>
   <div v-if="list" class="companies-list">
-    <div>
+    <div class="developers">
       <h3>
         Developers:
       </h3>
@@ -12,13 +12,14 @@
             company.company.websites ? company.company.websites[0].url : '#'
           "
           rel="noopener nofollow"
+          :target="company.company.websites ? '_blank' : ''"
         >
           <TagItem :tag="company.company.name" />
         </a>
       </span>
-      <span v-if="!hasDevelopers">TBA</span>
+      <span v-if="!hasDevelopers"><TagItem tag="TBA" faded/></span>
     </div>
-    <div>
+    <div class="publishers">
       <h3>
         Publishers:
       </h3>
@@ -30,13 +31,14 @@
             company.company.websites ? company.company.websites[0].url : '#'
           "
           rel="noopener nofollow"
+          :target="company.company.websites ? '_blank' : ''"
         >
           <TagItem :tag="company.company.name" />
         </a>
       </span>
-      <span v-if="!hasPublishers">TBA</span>
+      <span v-if="!hasPublishers"><TagItem tag="TBA" faded/></span>
     </div>
-    <div>
+    <div class="supporting">
       <h3>
         Supporting Developers:
       </h3>
@@ -48,11 +50,12 @@
             company.company.websites ? company.company.websites[0].url : '#'
           "
           rel="noopener nofollow"
+          :target="company.company.websites ? '_blank' : ''"
         >
           <TagItem :tag="company.company.name" />
         </a>
       </span>
-      <span v-if="!hasSupporting">N/A</span>
+      <span v-if="!hasSupporting"><TagItem tag="N/A" faded/></span>
     </div>
   </div>
 </template>
@@ -125,7 +128,9 @@ export default {
 h3 {
   display: inline;
 }
-.companies-list div {
+.developers,
+.publishers,
+.supporting {
   margin: 0.2rem 0;
 }
 </style>

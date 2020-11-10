@@ -3,12 +3,7 @@
     <h3>External links:</h3>
     <ul v-if="links" class="external-link-list">
       <li v-for="link in links" :key="link.id">
-        <a :href="link.url" rel="">
-          <img
-            :src="getLinkCategoryString(link.category)"
-            :alt="getLinkCategoryString(link.category) + ' icon'"
-            loading="lazy"
-          />
+        <a :href="link.url" rel="noopener nofollow" target="_blank">
           <span>{{ getLinkCategoryString(link.category) }}</span>
         </a>
       </li>
