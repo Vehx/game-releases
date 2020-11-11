@@ -189,6 +189,9 @@ export default {
     this.fetchGame();
   },
   methods: {
+    setTitle() {
+      document.title = `${this.game.name} | Game Releases`;
+    },
     async fetchGame() {
       this.loading = true;
       const url = process.env.VUE_APP_API_URL + "/games";
@@ -226,6 +229,7 @@ export default {
         console.log(this.game);
         console.log(this.game.involved_companies);
         this.loading = false;
+        this.setTitle();
       } catch (error) {
         this.loading = false;
         this.error = error;
