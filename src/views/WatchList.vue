@@ -46,6 +46,9 @@ export default {
 </script>
 
 <style scoped>
+.watch-list {
+  width: 100%;
+}
 h1 {
   margin-bottom: 2rem;
 }

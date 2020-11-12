@@ -32,3 +32,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.pc {
+  width: 100%;
+}
+</style>

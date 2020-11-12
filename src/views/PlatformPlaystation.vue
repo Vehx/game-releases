@@ -35,6 +35,9 @@ export default {
 </script>
 
 <style scoped>
+.playstation {
+  width: 100%;
+}
 img {
   border-radius: 15px;
   border: 10px solid var(--color-background-faded);

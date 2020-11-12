@@ -34,3 +34,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.xbox {
+  width: 100%;
+}
+</style>

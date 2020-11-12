@@ -32,3 +32,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.switch {
+  width: 100%;
+}
+</style>

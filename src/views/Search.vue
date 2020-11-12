@@ -63,6 +63,9 @@ export default {
 </script>
 
 <style scoped>
+.search {
+  width: 100%;
+}
 h2 {
   margin-bottom: 2rem;
 }
