@@ -182,13 +182,16 @@ export default {
         : "TBA";
     },
     coverImage() {
-      return `${this.imageUrl}t_cover_small/${this.game.cover.image_id}.jpg`;
+      return `${this.imageUrl}t_cover_big/${this.game.cover.image_id}.jpg`;
     }
   },
   created() {
     this.fetchGame();
   },
   methods: {
+    setTitle() {
+      document.title = `${this.game.name} | Game Releases`;
+    },
     async fetchGame() {
       this.loading = true;
       const url = process.env.VUE_APP_API_URL + "/games";
@@ -226,6 +229,7 @@ export default {
         console.log(this.game);
         console.log(this.game.involved_companies);
         this.loading = false;
+        this.setTitle();
       } catch (error) {
         this.loading = false;
         this.error = error;
@@ -244,6 +248,8 @@ h3 {
   color: var(--color-highlight);
 }
 .wrapper {
+  width: 100%;
+  max-width: 1000px;
   display: flex;
   margin-bottom: 10rem;
 }
@@ -262,8 +268,8 @@ h3 {
   min-width: 240px;
 }
 .cover {
-  height: 128px;
-  min-width: 90px;
+  height: 374px;
+  min-width: 264px;
   align-self: flex-start;
 }
 .release-date {
@@ -307,5 +313,8 @@ h3 {
 .release-dates,
 .screenshots {
   padding: 0;
+}
+.videos {
+  margin-top: 0.8rem;
 }
 </style>

@@ -44,6 +44,10 @@ html {
   color: var(--color-normal);
   max-width: 100vw;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .fade-enter-active,
 .fade-leave-active {

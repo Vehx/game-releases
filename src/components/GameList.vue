@@ -68,8 +68,6 @@ export default {
         });
         this.games = await res.json();
         this.loading = false;
-        // TODO remove this when done
-        // console.log(this.games);
       } catch (error) {
         this.error = error;
         this.loading = false;
@@ -91,6 +89,10 @@ export default {
   margin: 40px 0;
 }
 ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   list-style-type: none;
   padding: 5px 0;
   width: 100%;

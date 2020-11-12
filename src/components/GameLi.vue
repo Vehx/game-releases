@@ -43,9 +43,7 @@
           <button v-if="isSaved" @click="removeFromWatchList" class="remove">
             Remove from Watch list
           </button>
-          <button v-else @click="addToWatchList">
-            Add to Watch list
-          </button>
+          <button v-else @click="addToWatchList">Add to Watch list</button>
           <router-link
             :to="{
               name: 'GameDetails',
@@ -219,5 +217,14 @@ button {
 a {
   font-weight: bold;
   color: var(--color-highlight);
+}
+@media (min-width: 768px) {
+  li {
+    max-width: 750px;
+    width: 75%;
+  }
+  .wrapper {
+    width: 500px;
+  }
 }
 </style>

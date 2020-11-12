@@ -91,6 +91,7 @@ a.active-link {
 /* desktop menu styling */
 .menu {
   width: 100%;
+  max-width: 1000px;
   display: flex;
   justify-content: space-around;
   padding: 30px 0;

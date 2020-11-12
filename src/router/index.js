@@ -1,23 +1,39 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+import { nextTick } from "vue";
 
-// learn more about router here: https://vueschool.io/lessons/vue-router-dynamic-routes
+const mainTitle = "Game releases";
 
 const routes = [
   {
     path: "/",
     name: "Home",
+    meta: {
+      title: () => {
+        return mainTitle;
+      }
+    },
     component: Home
   },
   {
     path: "/pc",
     name: "Pc",
+    meta: {
+      title: () => {
+        return `PC | ${mainTitle}`;
+      }
+    },
     component: () =>
       import(/* webpackChunkName: "PlatformPc" */ "../views/PlatformPc.vue")
   },
   {
     path: "/playstation",
     name: "Playstation",
+    meta: {
+      title: () => {
+        return `Playstation | ${mainTitle}`;
+      }
+    },
     component: () =>
       import(
         /* webpackChunkName: "PlatformPlaystation" */ "../views/PlatformPlaystation.vue"
@@ -26,12 +42,22 @@ const routes = [
   {
     path: "/xbox",
     name: "Xbox",
+    meta: {
+      title: () => {
+        return `Xbox | ${mainTitle}`;
+      }
+    },
     component: () =>
       import(/* webpackChunkName: "PlatformXbox" */ "../views/PlatformXbox.vue")
   },
   {
     path: "/switch",
     name: "Switch",
+    meta: {
+      title: () => {
+        return `Switch | ${mainTitle}`;
+      }
+    },
     component: () =>
       import(
         /* webpackChunkName: "PlatformSwitch" */ "../views/PlatformSwitch.vue"
@@ -40,18 +66,33 @@ const routes = [
   {
     path: "/search",
     name: "Search",
+    meta: {
+      title: () => {
+        return `Search | ${mainTitle}`;
+      }
+    },
     component: () =>
       import(/* webpackChunkName: "Search" */ "../views/Search.vue")
   },
   {
     path: "/watch-list",
     name: "WatchList",
+    meta: {
+      title: () => {
+        return `Watch list | ${mainTitle}`;
+      }
+    },
     component: () =>
       import(/* webpackChunkName: "WatchList" */ "../views/WatchList.vue")
   },
   {
     path: "/about",
     name: "About",
+    meta: {
+      title: () => {
+        return `About | ${mainTitle}`;
+      }
+    },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -61,15 +102,26 @@ const routes = [
   {
     path: "/details/:slug",
     name: "GameDetails",
+    meta: {
+      title: () => {
+        return ` Game details | ${mainTitle}`;
+      }
+    },
     component: () =>
       import(/* webpackChunkName: "GameDetails" */ "../views/GameDetails.vue")
   },
   {
     path: "/404",
     name: "NotFound",
+    meta: {
+      title: () => {
+        return `404 | ${mainTitle}`;
+      }
+    },
     component: () =>
       import(/* webpackChunkName: "NotFound" */ "../views/NotFound.vue")
   },
+
   {
     // this matches path with a regex to send them to the 404 not found page
     path: "/:pathMatch(.*)*",
@@ -87,5 +139,9 @@ const router = createRouter({
     document.getElementById("app").scrollIntoView();
   }
 });
-
+router.afterEach(to => {
+  nextTick(() => {
+    document.title = to.meta.title(to) || mainTitle;
+  });
+});
 export default router;

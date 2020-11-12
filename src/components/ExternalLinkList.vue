@@ -83,4 +83,7 @@ a {
   color: var(--color-highlight);
   margin-top: 5px;
 }
+li {
+  margin-top: 0.4rem;
+}
 </style>

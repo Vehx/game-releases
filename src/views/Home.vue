@@ -28,8 +28,8 @@ export default {
     fetchBody() {
       // 604800 is the unix time stamp of 7 days, so this grabs all games releaseing in the next 7 days
       return `fields *, cover.image_id, genres.name, platforms.*, keywords.*; sort first_release_date asc;
-             where first_release_date > ${this.now} & first_release_date <
-             ${this.now + 604800};
+             where first_release_date > ${this.now} &
+             first_release_date < ${this.now + 604800};
              limit 50;`;
     }
   }
@@ -38,6 +38,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.home {
+  width: 100%;
+}
 p {
   margin: 0 1rem;
   line-height: 1.3rem;
