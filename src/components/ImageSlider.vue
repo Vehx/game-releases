@@ -9,7 +9,7 @@
     >
       <div v-for="image in images" class="slide" :key="image.id">
         <img
-          :src="`${imageUrl}t_screenshot_med/${image.image_id}.jpg`"
+          :src="`${imageUrl}t_screenshot_big/${image.image_id}.jpg`"
           :alt="image.name"
           loading="lazy"
         />
@@ -74,7 +74,6 @@ export default {
 
   display: flex;
   align-items: center;
-  height: 300px;
   width: 100%; /* fallback if calc isnt supported */
   width: calc(var(--slides) * 100%);
   overflow-y: hidden;
