@@ -182,7 +182,7 @@ export default {
         : "TBA";
     },
     coverImage() {
-      return `${this.imageUrl}t_cover_small/${this.game.cover.image_id}.jpg`;
+      return `${this.imageUrl}t_cover_big/${this.game.cover.image_id}.jpg`;
     }
   },
   created() {
@@ -248,6 +248,8 @@ h3 {
   color: var(--color-highlight);
 }
 .wrapper {
+  width: 100%;
+  max-width: 1000px;
   display: flex;
   margin-bottom: 10rem;
 }
@@ -266,8 +268,8 @@ h3 {
   min-width: 240px;
 }
 .cover {
-  height: 128px;
-  min-width: 90px;
+  height: 374px;
+  min-width: 264px;
   align-self: flex-start;
 }
 .release-date {
@@ -311,5 +313,8 @@ h3 {
 .release-dates,
 .screenshots {
   padding: 0;
+}
+.videos {
+  margin-top: 0.8rem;
 }
 </style>
