@@ -1,12 +1,10 @@
 <template>
-  <div class="aspect-ratio">
-    <div v-for="video in videos" :key="video.id" class="aspect-ratio">
-      <iframe
-        :src="`https://www.youtube.com/embed/${video.video_id}`"
-        frameborder="0"
-        allowfullscreen
-      ></iframe>
-    </div>
+  <div v-for="video in videos" :key="video.id" class="aspect-ratio">
+    <iframe
+      :src="`https://www.youtube.com/embed/${video.video_id}`"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
   </div>
 </template>
 
