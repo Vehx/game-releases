@@ -4,51 +4,52 @@
       About <br />
       Game Releases
     </h1>
-    <h3>This site is under construction :)</h3>
-    <p class="tiny">please excuse the noise</p>
     <p>
-      When it's done it will show game releases of the coming week.
+      Game releases is a site that give you a quick overview of the games that
+      are coming out in the next 7days.
     </p>
     <p>
-      There will also be a search so you can find a game you're looking forward
-      to.
+      It grabs the game information from one of the largest and hopefully most
+      up to date API's out there.
+    </p>
+    <p>You can search for games by name on the search page.</p>
+    <p>
+      Add games to your watch list to keep track of them. It saves the game id's
+      locally and gets their info, from the API, when you visit the watch list
+      page.
     </p>
     <p>
-      And a watchlist that you can add games to and keep track of. (Only saved
-      locally)
+      It was made by me
+      <a
+        href="https://github.com/Vehx/game-releases"
+        rel="noopener nofollow"
+        target="_blank"
+        >Vehx</a
+      >
     </p>
-    <p>Ominous test timer.. very spooky</p>
-    <Countdown :countdown="20" class="countdown" />
+    <p>I hope you enjoy it!</p>
   </div>
 </template>
-
-<script>
-import Countdown from "@/components/Countdown";
-
-export default {
-  components: {
-    Countdown
-  }
-};
-</script>
 
 <style scoped>
 .about {
   width: 100%;
-  padding: 0 1.5rem;
 }
 h1 {
+  color: var(--color-highlight);
   margin: 2rem;
 }
-.tiny {
-  font-size: 10px;
-}
 p {
-  margin-bottom: 1rem;
+  padding: 0 1rem 1rem;
 }
-.countdown {
-  color: red;
-  font-size: 30px;
-  font-weight: 100;
+a {
+  font-weight: bold;
+  color: var(--color-highlight);
+  margin-top: 5px;
+}
+@media (min-width: 768px) {
+  p {
+    padding: 0 5rem 2rem;
+  }
 }
 </style>
