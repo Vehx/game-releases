@@ -6,6 +6,7 @@
     </div>
     <p v-if="loading">Loading...</p>
     <p v-if="error">{{ error }}</p>
+    <p v-if="!foundGame">No games found</p>
     <ul v-if="games">
       <GameLi
         v-for="game in games"
@@ -44,7 +45,8 @@ export default {
       loading: false,
       games: null,
       error: null,
-      url: process.env.VUE_APP_API_URL
+      url: process.env.VUE_APP_API_URL,
+      foundGame: true
     };
   },
   created() {
@@ -67,6 +69,11 @@ export default {
           body: bodyContent
         });
         this.games = await res.json();
+        if (this.search) {
+          this.games.length === 0
+            ? (this.foundGame = false)
+            : (this.foundGame = true);
+        }
         this.loading = false;
       } catch (error) {
         this.error = error;
