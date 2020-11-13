@@ -226,8 +226,6 @@ export default {
         });
         const result = await res.json();
         this.game = result[0];
-        console.log(this.game);
-        console.log(this.game.involved_companies);
         this.loading = false;
         this.setTitle();
       } catch (error) {

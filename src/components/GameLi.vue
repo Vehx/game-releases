@@ -135,7 +135,6 @@ export default {
       } else {
         // otherwise we put the remaining game ids back into local storage
         currentStorage = storageArray.toString();
-        console.log(currentStorage);
         localStorage.setItem("watchlist", currentStorage);
       }
       this.isSaved = false;
