@@ -128,7 +128,7 @@ export default {
       let currentStorage = localStorage.getItem("watchlist");
       let storageArray = currentStorage.split(",");
       // grab the id of game id we want to remove and remove it
-      storageArray.splice(storageArray.indexOf(this.game.id), 1);
+      storageArray.splice(storageArray.indexOf(this.game.id.toString()), 1);
       // if it was the last game id in watchlist we also remove watchlist from local storage
       if (storageArray.length < 1) {
         localStorage.removeItem("watchlist");
