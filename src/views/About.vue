@@ -19,13 +19,7 @@
       page.
     </p>
     <p>
-      It was made by me
-      <a
-        href="https://github.com/Vehx/game-releases"
-        rel="noopener nofollow"
-        target="_blank"
-        >Vehx</a
-      >
+      It was made by me Vehx
     </p>
     <p>I hope you enjoy it!</p>
   </div>
